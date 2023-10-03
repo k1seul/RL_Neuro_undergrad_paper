@@ -174,7 +174,7 @@ class VanillaModelTable:
             next_state = new_location
         else:
             next_state = state
-            reward = -0.1 
+            wall_hit = True  
 
         if (
             not (self.reward_location is None)
@@ -185,6 +185,8 @@ class VanillaModelTable:
             done = True
         elif self.check_small_reward(next_state):
             reward = self.small_reward_size
+        if wall_hit:
+            reward = -0.1
 
         return next_state, reward, done
 
