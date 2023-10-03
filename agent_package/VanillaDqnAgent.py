@@ -163,6 +163,7 @@ class VanilaDqnAgent():
         self.epsilon = max(self.epsilon_min, self.epsilon_decay_rate  * self.epsilon)
 
     def save_network_weight(self, trial_num=0):
+        return 
         PATH = self.weight_data_dir + f"trial_{str(trial_num)}.pt"
         torch.save(self.q_network.state_dict(), PATH) 
        
