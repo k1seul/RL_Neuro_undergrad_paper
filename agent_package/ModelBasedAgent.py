@@ -138,7 +138,7 @@ class ModelBasedAgent():
 
             with torch.no_grad():
                 q_values = self.q_network(state_tensor)
-                q_values = q_values.cpu().numpy() * info 
+                q_values = q_values.detach().cpu().numpy() * info 
                 return np.argmax(q_values)
             
     def explore_act(self, state, info,  max_option=False):
@@ -150,7 +150,7 @@ class ModelBasedAgent():
 
             with torch.no_grad():
                 q_values = self.explore_q_network(state_tensor)
-                q_values = q_values.cpu().numpy() * info 
+                q_values = q_values.detach().cpu().numpy() * info 
                 return np.argmax(q_values) 
         
             

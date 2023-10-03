@@ -174,6 +174,8 @@ class VanillaModelTable:
             next_state = new_location
         else:
             next_state = state
+            reward = -0.1
+            return next_state, reward, done 
 
         if (
             not (self.reward_location is None)
@@ -184,8 +186,9 @@ class VanillaModelTable:
             done = True
         elif self.check_small_reward(next_state):
             reward = self.small_reward_size
-        elif (next_state == state).all():
-            reward = -0.1
+        if not(reward == 0):
+            print(f"reward is: {reward}")
+       
 
 
         return next_state, reward, done
