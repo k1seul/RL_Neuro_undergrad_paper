@@ -11,7 +11,7 @@ from directory_setting import directory_setting
 import json 
 
 
-def model_based_train(rand_seed = 0, simulation_num = 3, simulation_max_episode = 20): 
+def model_based_train(rand_seed = 0, simulation_num = 20, simulation_max_episode = 3): 
 
     gif_plotting = False      
     monkey_name = "p" 
