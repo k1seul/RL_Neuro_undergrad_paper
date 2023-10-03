@@ -39,6 +39,9 @@ class ModelBasedAgent():
 
         self.gpu_usage = True if torch.cuda.is_available() else False 
 
+
+        self.action_mask_bool = False 
+
         self.alpha = hyperparameters["PER_alpha"]
         self.TD_epsilon = hyperparameters["PER_TD_epsilon"] 
         self.state_size = state_size 
@@ -119,10 +122,17 @@ class ModelBasedAgent():
         return counter_matrix
 
 
-    def act(self, state, info, max_option=False):
-        
+    def act(self, state, info=None, max_option=False):
+
+
+        if not(self.action_mask_bool):
+            info = np.ones([4]) 
         if np.random.rand() <= self.epsilon and not(max_option):
-            return np.random.choice(np.where(info==1)[0]) 
+            if not(self.action_mask_bool):
+                return np.random.randint(self.action_size) 
+            else:
+                return np.random.choice(np.where(info==1)[0])
+        
         else:
             state_tensor = torch.Tensor(state).to(self.device)
 

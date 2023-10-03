@@ -13,9 +13,6 @@ def plot_all_functions(agent=Agent, model=Model, i_episode=int, trial_t=int, sta
     if not(finished):
         return 
     
-    
-
-
 
 
     ## for plotting with certain freqeuncy of trial_t 
