@@ -251,7 +251,7 @@ class MonkeyMazeEnv(gym.Env):
         elif small_rewarded:
             reward = 1 if not (self.no_reward) else 0
         elif wall_hit:
-            reward = 0 
+            reward = - 0.1 
         else:
             reward = 0
 
