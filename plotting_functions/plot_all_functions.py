@@ -10,6 +10,9 @@ from agent_package.CuriosityCounterModelTable import CuriosityCounterModelTable 
 
 def plot_all_functions(agent=Agent, model=Model, i_episode=int, trial_t=int, state=np.array, reward_location = np.array,
                        data_dir = "plotting_functions_data/", dual_policy = False, finished = False):
+    return 
+
+
     if not(finished):
         return 
     
