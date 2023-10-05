@@ -20,6 +20,8 @@ def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
     monkey_path = MonkeyPath(monkey_name=monkey_name)
     trial_length = monkey_path.trial_num
     trial_changed_start = [1,3,58,198,264,329,399,464]
+    if not(fixed_trial is None):
+        fixed_trial = trial_changed_start[fixed_trial]
     game_name = "Vanilla_dqn" if not(soft_max) else "Softmax_dqn"
 
 
