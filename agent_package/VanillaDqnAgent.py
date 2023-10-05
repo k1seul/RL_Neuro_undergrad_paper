@@ -5,6 +5,7 @@ import torch.optim as optim
 from collections import deque 
 import random 
 import numpy as np 
+import pickle
 
 class VanilaDqnAgent():
     """ implementation of simple dqn agent with experience replay and per"""
@@ -163,7 +164,7 @@ class VanilaDqnAgent():
         self.epsilon = max(self.epsilon_min, self.epsilon_decay_rate  * self.epsilon)
 
     def save_network_weight(self, trial_num=0):
-        PATH = self.weight_data_dir + f"trial_{str(trial_num)}.pt"
-        torch.save(self.q_network.state_dict(), PATH) 
-       
+        file_name = self.weight_data_dir + f"network_{str(trial_num)}.pkl"
+        with open(file_name, 'wb') as f:
+            pickle.dump(self.q_network.state_dict(), f)
     

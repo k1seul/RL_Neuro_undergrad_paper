@@ -52,7 +52,7 @@ def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
         pass 
 
     agent.random_seed(rand_seed) 
-    agent.weight_data_dir = data_dir + "network_weight/"
+    agent.weight_data_dir = data_dir + f"network_weight/"
     if not(os.path.exists(agent.weight_data_dir)):
         os.makedirs(agent.weight_data_dir)
 
