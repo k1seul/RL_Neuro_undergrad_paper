@@ -193,7 +193,7 @@ class VanillaModelTable:
 
         return next_state, reward, done
 
-    def model_simulate(self, agent=ModelBasedAgent, state=np.zeros(2), reset=True):
+    def model_simulate(self, agent=ModelBasedAgent, state=np.zeros(2), reset=True, trial_num=None,data_saver=None):
         episode_num = 0
 
         start_state = np.copy(state)
@@ -207,6 +207,9 @@ class VanillaModelTable:
             while not (done):
                 action = agent.act(state)
                 next_state, reward, done = self.simulate_map(state, action)
+
+                if not(data_saver is None):
+                    data_saver.record_visited_count(state=state, trial_num=trial_num, model=True)
 
                 if episode_num >= self.simulation_max_episode:
                     done = True

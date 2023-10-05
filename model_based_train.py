@@ -81,6 +81,7 @@ def model_based_train(rand_seed = 0, simulation_num = 15, simulation_max_episode
         model.t = 0 
         model.draw_map(episode_num = trial_num)
         model.record_map(state = state, reward = reward, done = False, i_episode = trial_num)
+        
 
         state_trajectories = []
         action_trajectories = [] 
@@ -97,6 +98,7 @@ def model_based_train(rand_seed = 0, simulation_num = 15, simulation_max_episode
             total_reward += reward 
             total_length += 1 
             agent.remember(state, action, reward, next_state, done)
+            data_saver.record_visited_count(state = state, trial_num = trial_num)
             model.record_map(state = next_state , reward = reward, done = done, i_episode = trial_num)
 
             
@@ -108,7 +110,7 @@ def model_based_train(rand_seed = 0, simulation_num = 15, simulation_max_episode
             action_trajectories.append(action)
             state = next_state
 
-            model.model_simulate(agent = agent, state = state, reset = True)
+            model.model_simulate(agent = agent, state = state, reset = True,trial_num=trial_num, data_saver=data_saver)
 
             plotting_functions.plot_all_functions(agent = agent, model = model, i_episode = trial_num,
                                                   trial_t = trial_t, state = state,
@@ -121,6 +123,8 @@ def model_based_train(rand_seed = 0, simulation_num = 15, simulation_max_episode
             trial_t += 1 
             env._monkey_location = trial_monkey_path[trial_t]
             env._render_frame() 
+
+        data_saver.save_visited_count()
 
         path_analytic_tool.get_all_path_analytic_out(agent = agent, agent_path = state_trajectories, agent_action_seq = action_trajectories,
                 monkey_path=trial_monkey_path, writer=writer, trial_num = trial_num, total_reward = total_reward, 

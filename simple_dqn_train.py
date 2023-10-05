@@ -61,10 +61,13 @@ def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
 
     for trial_num in range(trial_length):
         if not(fixed_trial is None):
+            saved_trial_num = trial_num
             trial_num = fixed_trial
         trial_start = monkey_path.get_start_position(trial_num) 
         trial_goal = monkey_path.get_goal_position(trial_num)
         trial_monkey_path = monkey_path.get_trial(trial_num = trial_num)
+        if not(fixed_trial is None):
+            trial_num = saved_trial_num
         monkey_agent_compare_gif_dir = data_dir + f"monkey_compare_agent/"
         if not(os.path.exists(monkey_agent_compare_gif_dir)):
             os.makedirs(monkey_agent_compare_gif_dir)
@@ -112,6 +115,7 @@ def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
             action_trajectories.append(action)
             state = next_state
             finished = done or truncated
+            data_saver.record_visited_count(state = state, trial_num = trial_num, model = False)
 
             plotting_functions.plot_all_functions(agent=agent, model=None, i_episode = trial_num, trial_t = trial_t, 
                                                 state = state, reward_location=trial_goal, data_dir=data_dir, finished=finished)
@@ -129,6 +133,7 @@ def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
                 monkey_path=trial_monkey_path, writer=writer, trial_num = trial_num, total_reward = total_reward, 
                 total_length = total_length, data_saver = data_saver) 
         agent.save_network_weight(trial_num = trial_num)
+        data_saver.save_visited_count()
 
         print("Episode: {}, total_reward: {:.2f}, epsilon: {:.2f}, length: {}".format(trial_num, total_reward, agent.epsilon, total_length))
         if gif_plotting: 

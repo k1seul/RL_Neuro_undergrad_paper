@@ -19,6 +19,31 @@ class DataSaver():
         self.explore_percentage_list = [] 
         self.agent_trajectory_list = [] 
         self.choice_sim_percent_agent_self = [] 
+        self.agent_visited_count = []
+        self.model_visited_count = []
+        self.agent_counter = np.zeros([11,11])
+        self.model_counter = np.zeros([11,11])
+        self.trial_num_memory = -1
+
+    def record_visited_count(self, state, trial_num, model=False):
+        if not(self.trial_num_memory == trial_num):
+            self.agent_counter = np.zeros([11,11])
+            self.model_counter = np.zeros([11,11])
+            self.trial_num_memory = trial_num
+        
+        if model:
+            self.model_counter[state[0], state[1]] += 1
+        else:
+            self.agent_counter[state[0], state[1]] += 1
+    def save_visited_count(self):
+        self.agent_visited_count.append(self.agent_counter)
+        self.model_visited_count.append(self.model_counter)
+        
+
+        
+
+
+    
 
     def record_data(self, length, reward, reward_rate, shannon_value, path_sim, choice_sim_percent, monkey_max_choice_compare_percent, exploration_entropy, explore_percentage, trajectory,
                     choice_sim_percent_agent_self):
@@ -48,6 +73,8 @@ class DataSaver():
             "explore_percentage": self.explore_percentage_list,
             "agent_trajectory": self.agent_trajectory_list, 
             "choice_sim_percent_agent_self": self.choice_sim_percent_agent_self,
+            "agent_visited_count": self.agent_visited_count,
+            "model_visited_count": self.model_visited_count
         }
 
         if not(os.path.exists(self.data_dir)):
