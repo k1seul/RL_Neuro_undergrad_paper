@@ -13,5 +13,6 @@ simulation_num = [2, 5, 10, 15, 20, 30]
 simulation_max_episode = [30, 12, 6, 4, 3, 2]
 
 for i in range(6):
-    model_based_train(rand_seed=i, simulation_num=simulation_num[i], simulation_max_episode=simulation_max_episode[i])
+    for l in range(1):
+        model_based_train(rand_seed=l, simulation_num=simulation_num[i], simulation_max_episode=simulation_max_episode[i])
 
