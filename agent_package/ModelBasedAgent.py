@@ -5,6 +5,7 @@ import torch.optim as optim
 from collections import deque 
 import random 
 import numpy as np 
+import pickle
 
 
 class cross_ent_loss(nn.Module):
@@ -273,4 +274,22 @@ class ModelBasedAgent():
     def decay_epsilon(self):
         self.epsilon = max(self.epsilon_min, self.epsilon_decay_rate  * self.epsilon)
 
+    def save_network_weight(self, trial_num=0):
+        if not(trial_num % 40 == 0 ):
+            return 
         
+        file_name = self.weight_data_dir + f"network_{str(trial_num)}.pkl"
+
+        weights = []
+
+        for param in self.q_network.parameters():
+            if param.requires_grad:
+                weights.append(param.data.view(-1).numpy())
+
+        # Convert the list of weights into a numpy array
+        weights_array = np.concatenate(weights)
+
+
+        with open(file_name, 'wb') as f:
+            pickle.dump(weights_array, f)
+    
