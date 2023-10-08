@@ -186,9 +186,7 @@ class VanillaModelTable:
             done = True
         elif self.check_small_reward(next_state):
             reward = self.small_reward_size
-        if not(reward == 0):
-            print(f"reward is: {reward}")
-       
+
 
 
         return next_state, reward, done
