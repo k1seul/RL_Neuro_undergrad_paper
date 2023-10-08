@@ -6,11 +6,12 @@ from collections import deque
 import random 
 import numpy as np 
 import pickle
+import math 
 
-class VanilaDqnAgent():
+class ExploreDqnAgent():
     """ implementation of simple dqn agent with experience replay and per"""
     def __init__(self, state_size, action_size, hyperparameters, policy_network= "Q_network", 
-                 bool_PER = False, seed_value = 0
+                 bool_PER = False, seed_value = 0, log_weight = 1, log_bias = 0.5
                  ):
 
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -38,6 +39,11 @@ class VanilaDqnAgent():
         self.epsilon_min = hyperparameters["epsilon_min"]
         self.epsilon_decay_rate = hyperparameters["epsilon_decay_rate"]
         self.bool_PER = bool_PER 
+        self.log_weight = log_weight
+        self.log_bias = log_bias
+
+        ## counter for exploration 
+        self.explore_counter = np.zeros([11,11])
 
 
         ## expected reward mutiple 
@@ -62,6 +68,25 @@ class VanilaDqnAgent():
 
         self.optimizer = optim.Adam(self.q_network.parameters(), lr=self.learning_rate)
         self.criterion = nn.MSELoss()
+
+    def update_counter(self, next_state):
+        self.explore_counter[next_state[0], next_state[1]] += 1
+    def reset_counter(self):
+        self.explore_counter = np.zeros([11,11])
+    def calculate_explore_reward(self, next_state):
+        counter_matrix = np.copy(self.explore_counter)
+        if np.sum(counter_matrix) == 0:
+          return 0
+        next_state_percentage = counter_matrix[next_state[0]][next_state[1]] / np.max(counter_matrix)
+        info_reward = - self.log_weight * math.log(next_state_percentage + 0.1) - self.log_bias
+        return info_reward
+    def calculate_visited_num(self):
+        """returns true if all the states are visited at least once"""
+        visited_num = np.sum(self.explore_counter > 0)
+        if visited_num == 52:
+            return True 
+        else:
+            return False
     
     def random_seed(self, seed_value):
         """set the random seed for the torch and numpy""" 
@@ -91,14 +116,6 @@ class VanilaDqnAgent():
                 max_q = q_values[max_action]
           
                 return max_action
-    
-    def get_expected_reward(self, state, action): 
-        state_tensor = torch.Tensor(state).to(self.device) 
-        with torch.no_grad():
-            q_values = self.q_network(state_tensor).cpu().numpy() 
-            q_value_of_action = q_values[action]
-            return q_value_of_action * self.expected_reward_alpha
-                
     
     
     def calculate_td_error(self, state, action, reward, next_state, done):
@@ -168,17 +185,6 @@ class VanilaDqnAgent():
             return 
         
         file_name = self.weight_data_dir + f"network_{str(trial_num)}.pkl"
-
-        weights = []
-
-        for param in self.q_network.parameters():
-            if param.requires_grad:
-                weights.append(param.data.view(-1).numpy())
-
-        # Convert the list of weights into a numpy array
-        weights_array = np.concatenate(weights)
-
-
         with open(file_name, 'wb') as f:
-            pickle.dump(weights_array, f)
+            pickle.dump(self.q_network.state_dict(), f)
     

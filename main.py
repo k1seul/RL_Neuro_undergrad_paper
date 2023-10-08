@@ -5,7 +5,7 @@ for i in range(8):
     simple_dqn_train(rand_seed=i, fixed_trial=i)
 
 
-for i in range(1):
+for i in [10, 11]:
     simple_dqn_train(rand_seed=i)
 
 

@@ -5,3 +5,4 @@ from .VanillaModelTable import VanillaModelTable
 from .CuriosityCounterModelTable import CuriosityCounterModelTable
 from .SuccessorRepresentAgent import SuccessorRepresentAgent
 from .CuriosityBasedAgent import CuriosityBasedAgent
+from .ExploreDqnAgent import ExploreDqnAgent

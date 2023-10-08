@@ -12,14 +12,21 @@ from .DataSaver import DataSaver
 
 def get_all_path_analytic_out(agent = ModelBasedAgent, agent_path = np.array , agent_action_seq = np.array, monkey_path = np.array,
                               writer = SummaryWriter, trial_num = int, total_reward = float, total_length = int,
-                              data_saver = DataSaver):
+                              data_saver = DataSaver, no_monkey = False):
     
-    choice_sim_percent_monkey_agent = choice_sim_percent(agent, monkey_path)
+    if not(no_monkey):
+        choice_sim_percent_monkey_agent = choice_sim_percent(agent, monkey_path)
+        choice_sim_percent_monkey_agent_max = monkey_max_choice_agent_compare(monkey_path, agent)
+        path_similarity_monkey_agent = path_similarity(monkey_path, agent_path) 
+    else:
+        choice_sim_percent_monkey_agent = 0
+        choice_sim_percent_monkey_agent_max = 0
+        path_similarity_monkey_agent = 0
     choice_sim_percent_agent_self = choice_sim_percent(agent, agent_path) 
 
-    choice_sim_percent_monkey_agent_max = monkey_max_choice_agent_compare(monkey_path, agent)
+    
 
-    path_similarity_monkey_agent = path_similarity(monkey_path, agent_path) 
+    
 
     agent_exploration_entropy, agent_explore_percent = exploration_entropy(agent_path)
 
