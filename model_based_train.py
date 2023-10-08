@@ -49,6 +49,10 @@ def model_based_train(rand_seed = 0, simulation_num = 15, simulation_max_episode
 
     agent.random_seed(rand_seed)
     model.random_seed(rand_seed) 
+    
+    agent.weight_data_dir = data_dir + f"network_weight/"
+    if not(os.path.exists(agent.weight_data_dir)):
+        os.makedirs(agent.weight_data_dir)
 
     if bool_pre_train:
         pre_train(agent=agent, model=model) 
@@ -115,7 +119,9 @@ def model_based_train(rand_seed = 0, simulation_num = 15, simulation_max_episode
             plotting_functions.plot_all_functions(agent = agent, model = model, i_episode = trial_num,
                                                   trial_t = trial_t, state = state,
                                                   reward_location = trial_goal, data_dir = data_dir)
-            
+        
+        state_trajectories.append(state)
+        
         if done:
             agent.decay_epsilon() 
 
@@ -136,6 +142,7 @@ def model_based_train(rand_seed = 0, simulation_num = 15, simulation_max_episode
         env.close()
 
     writer.close() 
+    agent.save_network_weight(trial_num = trial_num)
     data_saver.save_data() 
 
 
