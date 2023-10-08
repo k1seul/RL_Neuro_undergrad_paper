@@ -195,8 +195,12 @@ class VanillaModelTable:
 
     def model_simulate(self, agent=ModelBasedAgent, state=np.zeros(2), reset=True, trial_num=None,data_saver=None):
         episode_num = 0
+        if not(self.known_reward()):
+            return
 
         start_state = np.copy(state)
+
+
         for epi_repeat in range(self.simulation_num):
             state = np.copy(start_state)
             if reset:
