@@ -185,6 +185,17 @@ class ExploreDqnAgent():
             return 
         
         file_name = self.weight_data_dir + f"network_{str(trial_num)}.pkl"
+
+        weights = []
+
+        for param in self.q_network.parameters():
+            if param.requires_grad:
+                weights.append(param.data.cpu().view(-1).numpy())
+
+        # Convert the list of weights into a numpy array
+        weights_array = np.concatenate(weights)
+
+
         with open(file_name, 'wb') as f:
-            pickle.dump(self.q_network.state_dict(), f)
+            pickle.dump(weights_array, f)
     
