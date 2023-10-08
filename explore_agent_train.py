@@ -93,8 +93,7 @@ def explore_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False,
             total_length += 1 
 
             reward = reward + internal_reward
-            print(internal_reward)
-
+        
             done = agent.calculate_visited_num()
 
             agent.remember(state, action, reward, next_state, done)
@@ -132,4 +131,10 @@ def explore_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False,
 
 
 if __name__ == "__main__":
-    explore_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, fixed_trial = None)
+    log_weights = np.array([1, 2, 3, 4])
+    log_biases = np.array([-1.60943791, -3.21887582, -4.82831374, -6.43775165])
+    for i in range(len(log_weights)):
+
+        explore_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, fixed_trial = None,
+                        log_weight=log_weights[i], log_bias = log_biases[i])
+        

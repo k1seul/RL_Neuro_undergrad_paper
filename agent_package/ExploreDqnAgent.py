@@ -78,7 +78,7 @@ class ExploreDqnAgent():
         if np.sum(counter_matrix) == 0:
           return 0
         next_state_percentage = counter_matrix[next_state[0]][next_state[1]] / np.max(counter_matrix)
-        info_reward = - self.log_weight * math.log(next_state_percentage + 0.1) - self.log_bias
+        info_reward = - self.log_weight * math.log(next_state_percentage + 0.1) + self.log_bias
         return info_reward
     def calculate_visited_num(self):
         """returns true if all the states are visited at least once"""
