@@ -122,7 +122,9 @@ def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
             plotting_functions.plot_all_functions(agent=agent, model=None, i_episode = trial_num, trial_t = trial_t, 
                                                 state = state, reward_location=trial_goal, data_dir=data_dir, finished=finished)
 
-            
+        state_trajectories.append(state)
+        action_trajectories.append(action)
+        
         if done:
             agent.decay_epsilon()
         

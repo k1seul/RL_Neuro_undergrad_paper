@@ -121,7 +121,7 @@ def model_based_train(rand_seed = 0, simulation_num = 15, simulation_max_episode
                                                   reward_location = trial_goal, data_dir = data_dir)
         
         state_trajectories.append(state)
-        
+        action_trajectories.append(action)
         if done:
             agent.decay_epsilon() 
 
