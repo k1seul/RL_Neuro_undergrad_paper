@@ -83,7 +83,7 @@ class ExploreDqnAgent():
     def calculate_visited_num(self):
         """returns true if all the states are visited at least once"""
         visited_num = np.sum(self.explore_counter > 0)
-        if visited_num == 52:
+        if visited_num >= 48:
             return True 
         else:
             return False
