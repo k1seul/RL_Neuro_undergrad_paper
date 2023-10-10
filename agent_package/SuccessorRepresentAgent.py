@@ -101,7 +101,7 @@ class SuccessorRepresentAgent():
 
             current_sr = self.srq_network(state, torch.Tensor([action]).unsqueeze(0).to(self.device))
             max_action = self.act(next_state_numpy, max_option=True)
-            next_sr = self.srq_network(next_state, torch.Tensor([max_actionßß]).unsqueeze(0).to(self.device))
+            next_sr = self.srq_network(next_state, torch.Tensor([max_action]).unsqueeze(0).to(self.device))
 
             target_sr = current_state_representation + self.gamma * next_sr 
             
