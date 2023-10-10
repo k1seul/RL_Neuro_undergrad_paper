@@ -1,6 +1,6 @@
 {
     "epsilon" : 1.0,
-    "epsilon_decay_rate": 0.9995,
+    "epsilon_decay_rate": 0.99,
     "epsilon_min": 0.2, 
     "learning_rate": 0.001,
     "hidden_size": 512, 
