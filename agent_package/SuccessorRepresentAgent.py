@@ -46,7 +46,7 @@ class SuccessorRepresentAgent():
 
     def record_reward(self, next_state, reward):
         """record the reward in the reward map"""
-        if reward < 0:
+        if reward < 5:
             return 
         self.reward_map[next_state[0], next_state[1]] = reward
     
