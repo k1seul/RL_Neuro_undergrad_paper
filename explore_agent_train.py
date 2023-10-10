@@ -131,8 +131,8 @@ def explore_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False,
 
 
 if __name__ == "__main__":
-    log_weights = np.array([1, 2, 3, 4])
-    log_biases = np.array(([-0.51082562, -1.02165125, -1.53247687, -2.0433025 ]))
+    log_weights = np.array([2, 4, 6, 8])
+    log_biases = np.array([-1.02165125, -2.0433025 , -3.06495374, -4.08660499])
     for i in range(len(log_weights)):
 
         explore_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, fixed_trial = None,
