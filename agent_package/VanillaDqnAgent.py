@@ -159,12 +159,30 @@ class VanilaDqnAgent():
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
+    def single_replay(self):
+        """ replay of single resent experience"""
+        experience = self.experience_memory[-1]
+        state = torch.FloatTensor(np.array([experience[0]])).to(self.device)
+        action = torch.LongTensor([experience[1]]).to(self.device)
+        reward = torch.FloatTensor([experience[2]]).to(self.device)
+        next_state = torch.FloatTensor(np.array([experience[3]])).to(self.device)
+        done = torch.FloatTensor([experience[4]]).to(self.device)
+
+        q_values = self.q_network(state)
+        next_q_values = self.q_network(next_state)
+        target_q_values = reward + (1 - done) * self.gamma * next_q_values.max(1)[0]
+        q_values = q_values.gather(1, action.unsqueeze(1))
+        loss = self.criterion(q_values, target_q_values.unsqueeze(1))
+        self.optimizer.zero_grad()
+        loss.backward()
+        self.optimizer.step()
+    
     
     def decay_epsilon(self):
         self.epsilon = max(self.epsilon_min, self.epsilon_decay_rate  * self.epsilon)
 
     def save_network_weight(self, trial_num=0):
-        if not(trial_num % 40 == 0 ):
+        if not(trial_num % 10 == 0 ):
             return 
         
         file_name = self.weight_data_dir + f"network_{str(trial_num)}.pkl"

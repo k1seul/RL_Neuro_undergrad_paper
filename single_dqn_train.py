@@ -11,7 +11,7 @@ from directory_setting import directory_setting
 import json 
 
 
-def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, fixed_trial = None): 
+def single_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, fixed_trial = None): 
     gif_plotting = False # for Plotting gif path comparson data between agent and monkey 
     monkey_name = "p" 
     bool_pre_train = True
@@ -22,7 +22,7 @@ def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
     trial_changed_start = [1,3,58,198,264,329,399,464]
     if not(fixed_trial is None):
         fixed_trial = trial_changed_start[fixed_trial]
-    game_name = "Vanilla_dqn" if not(soft_max) else "Softmax_dqn"
+    game_name = "Vanilla_single_dqn" if not(soft_max) else "Softmax_single_dqn"
 
 
     
@@ -111,7 +111,7 @@ def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
 
             
 
-            agent.replay(TD_sample=bool_PER)
+            agent.single_replay()
 
             state_trajectories.append(state)
             action_trajectories.append(action)
@@ -136,6 +136,7 @@ def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
                 total_length = total_length, data_saver = data_saver) 
         agent.save_network_weight(trial_num = trial_num)
         data_saver.save_visited_count()
+
         os.system('cls' if os.name == 'nt' else 'clear')
         print("Episode: {}, total_reward: {:.2f}, epsilon: {:.2f}, length: {}".format(trial_num, total_reward, agent.epsilon, total_length))
         if gif_plotting: 
@@ -147,6 +148,6 @@ def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
 
 
 if __name__ == "__main__":
-    simple_dqn_train()
+    single_dqn_train()
 
         
