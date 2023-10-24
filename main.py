@@ -1,7 +1,7 @@
 from simple_dqn_train import simple_dqn_train
 from model_based_train import model_based_train
 from single_dqn_train import single_dqn_train
-from rand_train import rand_train
+from rand_train import rand_dqn_train
 """
 for i in range(8):
     simple_dqn_train(rand_seed=i, fixed_trial=i)
@@ -23,4 +23,4 @@ for i in range(6):
 """
 
 for i in range(8):
-    rand_train(rand_seed=i, fixed_trial=i)
+    rand_dqn_train(rand_seed=i, fixed_trial=i)
