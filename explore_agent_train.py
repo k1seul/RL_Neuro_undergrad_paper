@@ -25,9 +25,10 @@ def explore_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False,
 
     
     hyperparameters_file_path = "hyperparameters/" + game_name + ".json"
-
-
-    game_name = game_name + f"_log_weight_{log_weight}_log_bias_{log_bias}_PER_{bool_PER}"
+    if sigmoid:
+        game_name = game_name + f"sigmoid_weight_{sigmoid_weight}"
+    else:
+        game_name = game_name + f"_log_weight_{log_weight}_log_bias_{log_bias}_PER_{bool_PER}" 
 
     with open(hyperparameters_file_path, "r") as file: 
         hyperparameters = json.load(file)
