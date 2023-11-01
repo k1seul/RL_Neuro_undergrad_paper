@@ -85,7 +85,7 @@ class ExploreDqnAgent():
         if not(self.sigmoid):
             info_reward = - self.log_weight * math.log(next_state_percentage + 0.1) + self.log_bias
         else:
-            info_reward = 1 -  1 / (1 + (next_state_percentage + 0.01/1-next_state_percentage)**(-self.sigmoid_weight))
+            info_reward = 1 -  1 / (1 + ((next_state_percentage + 0.01)/(1-next_state_percentage))**(-self.sigmoid_weight))
 
         
         return info_reward
