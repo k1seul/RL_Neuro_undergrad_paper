@@ -87,7 +87,7 @@ class ExploreDqnAgent():
         else:
             info_reward = 1 -  1 / (1 + (next_state_percentage + 0.01/1-next_state_percentage)**(-self.sigmoid_weight))
 
-        print(f"infor reward is {info_reward}")
+        
         return info_reward
     def calculate_visited_num(self):
         """returns true if all the states are visited at least once"""
