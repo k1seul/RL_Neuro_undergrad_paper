@@ -23,6 +23,8 @@ def single_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
     if not(fixed_trial is None):
         fixed_trial = trial_changed_start[fixed_trial]
     game_name = "Vanilla_single_dqn" if not(soft_max) else "Softmax_single_dqn"
+    game_name = game_name + f"_PER_{bool_PER}" if bool_PER else game_name
+
 
 
     
@@ -47,7 +49,8 @@ def single_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
         agent = agent_package.VanilaDqnAgent(state_size = state_size, 
                         action_size = action_size,
                         hyperparameters = hyperparameters,
-                        seed_value=rand_seed)
+                        seed_value=rand_seed,
+                        bool_PER = bool_PER)
         agent.action_mask_bool = action_mask_bool 
     else:
         """for softmax agent currently working on it """

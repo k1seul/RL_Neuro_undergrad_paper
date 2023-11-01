@@ -11,7 +11,7 @@ from directory_setting import directory_setting
 import json 
 
 
-def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, fixed_trial = None): 
+def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, fixed_trial = None, bool_per = False): 
     gif_plotting = False # for Plotting gif path comparson data between agent and monkey 
     monkey_name = "p" 
     bool_pre_train = True
@@ -23,6 +23,8 @@ def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
     if not(fixed_trial is None):
         fixed_trial = trial_changed_start[fixed_trial]
     game_name = "Vanilla_dqn" if not(soft_max) else "Softmax_dqn"
+    game_name = game_name + f"_PER_{bool_PER}" if bool_PER else game_name
+
 
 
     
@@ -47,7 +49,8 @@ def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
         agent = agent_package.VanilaDqnAgent(state_size = state_size, 
                         action_size = action_size,
                         hyperparameters = hyperparameters,
-                        seed_value=rand_seed)
+                        seed_value=rand_seed,
+                        bool_PER=bool_PER)
         agent.action_mask_bool = action_mask_bool 
     else:
         """for softmax agent currently working on it """
@@ -147,6 +150,6 @@ def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
 
 
 if __name__ == "__main__":
-    simple_dqn_train()
+    simple_dqn_train(bool_per=True)
 
         
