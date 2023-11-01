@@ -27,7 +27,7 @@ for i in range(6):
 for i in range(8):
     rand_dqn_train(rand_seed=i, fixed_trial=i)
 """
-"""
+
 sigmoid_weights = [2,3,4,5,10,20,30]
 for sigmoid_weight in sigmoid_weights:
     explore_dqn_train(rand_seed=sigmoid_weight, sigmoid_weight=sigmoid_weight, sigmoid=True)
@@ -35,7 +35,7 @@ for sigmoid_weight in sigmoid_weights:
 
 
 
-"""
+
 
 
 for i in range(8):
