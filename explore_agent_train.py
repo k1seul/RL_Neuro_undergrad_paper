@@ -124,6 +124,8 @@ def explore_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False,
         agent.save_network_weight(trial_num = trial_num)
         data_saver.save_visited_count()
 
+        os.system('cls' if os.name == 'nt' else 'clear')
+
         print("Episode: {}, total_reward: {:.2f}, epsilon: {:.2f}, length: {}".format(trial_num, total_reward, agent.epsilon, total_length))
         if gif_plotting: 
             env.recrdr.save()
