@@ -11,7 +11,7 @@ import math
 class ExploreDqnAgent():
     """ implementation of simple dqn agent with experience replay and per"""
     def __init__(self, state_size, action_size, hyperparameters, policy_network= "Q_network", 
-                 bool_PER = False, seed_value = 0, log_weight = 1, log_bias = 0.5
+                 bool_PER = False, seed_value = 0, log_weight = 1, log_bias = 0.5, sigmoid = False, sigmoid_weight = 5
                  ):
 
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -41,6 +41,9 @@ class ExploreDqnAgent():
         self.bool_PER = bool_PER 
         self.log_weight = log_weight
         self.log_bias = log_bias
+        self.sigmoid = sigmoid
+        self.sigmoid_weight = sigmoid_weight
+    
 
         ## counter for exploration 
         self.explore_counter = np.zeros([11,11])
@@ -78,7 +81,13 @@ class ExploreDqnAgent():
         if np.sum(counter_matrix) == 0:
           return 0
         next_state_percentage = counter_matrix[next_state[0]][next_state[1]] / np.max(counter_matrix)
-        info_reward = - self.log_weight * math.log(next_state_percentage + 0.1) + self.log_bias
+
+        if not(self.sigmoid):
+            info_reward = - self.log_weight * math.log(next_state_percentage + 0.1) + self.log_bias
+        else:
+            info_reward = 1 -  1 / (1 + (next_state_percentage + 0.01/1-next_state_percentage)**(-self.sigmoid_weight))
+
+        print(f"infor reward is {info_reward}")
         return info_reward
     def calculate_visited_num(self):
         """returns true if all the states are visited at least once"""

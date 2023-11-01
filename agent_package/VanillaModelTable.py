@@ -191,12 +191,17 @@ class VanillaModelTable:
 
         return next_state, reward, done
 
-    def model_simulate(self, agent=ModelBasedAgent, state=np.zeros(2), reset=True, trial_num=None,data_saver=None):
+    def model_simulate(self, agent=ModelBasedAgent, state=np.zeros(2), reset=True, trial_num=None,data_saver=None, random = False):
         episode_num = 0
         if not(self.known_reward()):
             return
 
         start_state = np.copy(state)
+
+        epsilon_save = agent.epsilon
+        if random:
+            agent.epsilon = 1
+
 
 
         for epi_repeat in range(self.simulation_num):
@@ -220,3 +225,7 @@ class VanillaModelTable:
                 agent.replay(model=True)
                 episode_num += 1
                 state = np.copy(next_state)
+
+                
+        if random:
+            agent.epsilon = epsilon_save

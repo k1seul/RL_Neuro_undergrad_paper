@@ -12,7 +12,7 @@ import json
 
 
 def explore_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, fixed_trial = None,
-                      log_weight=1, log_bias = 0.5): 
+                      log_weight=1, log_bias = 0.5, sigmoid = False, sigmoid_weight = 1): 
     gif_plotting = False # for Plotting gif path comparson data between agent and monkey 
     monkey_name = "p" 
     bool_PER = False # Priortized Experience Replay 
@@ -20,7 +20,7 @@ def explore_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False,
     monkey_path = MonkeyPath(monkey_name=monkey_name)
     trial_length = monkey_path.trial_num
     trial_changed_start = [1,3,58,198,264,329,399,464]
-    game_name = "Explore_dqn"
+    game_name = "Explore_dqn" if not(sigmoid) else "Explore_dqn_sigmoid"
 
 
     
@@ -47,7 +47,9 @@ def explore_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False,
                         hyperparameters = hyperparameters,
                         seed_value=rand_seed,
                         log_weight=log_weight,
-                        log_bias=log_bias)
+                        log_bias=log_bias,
+                        sigmoid = sigmoid,
+                        sigmoid_weight = sigmoid_weight)
         agent.action_mask_bool = action_mask_bool 
     else:
         """for softmax agent currently working on it """
@@ -131,10 +133,13 @@ def explore_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False,
 
 
 if __name__ == "__main__":
+
+    explore_dqn_train(rand_seed= 0, sigmoid = True, sigmoid_weight = 3)
+    """
     log_weights = np.array([2, 4, 6, 8])
     log_biases = np.array([-1.02165125, -2.0433025 , -3.06495374, -4.08660499])
     for i in range(len(log_weights)):
 
         explore_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, fixed_trial = None,
                         log_weight=log_weights[i], log_bias = log_biases[i])
-        
+    """
