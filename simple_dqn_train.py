@@ -15,7 +15,7 @@ def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
     gif_plotting = False # for Plotting gif path comparson data between agent and monkey 
     monkey_name = "p" 
     bool_pre_train = True
-    bool_PER = False # Priortized Experience Replay 
+    # Priortized Experience Replay 
     env = MonkeyMazeEnv() 
     monkey_path = MonkeyPath(monkey_name=monkey_name)
     trial_length = monkey_path.trial_num
