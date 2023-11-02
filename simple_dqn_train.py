@@ -11,7 +11,7 @@ from directory_setting import directory_setting
 import json 
 
 
-def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, fixed_trial = None, bool_per = False): 
+def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, fixed_trial = None, bool_PER = False): 
     gif_plotting = False # for Plotting gif path comparson data between agent and monkey 
     monkey_name = "p" 
     bool_pre_train = True

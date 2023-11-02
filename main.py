@@ -39,8 +39,8 @@ for sigmoid_weight in sigmoid_weights:
 
 
 for i in range(8):
-    simple_dqn_train(rand_seed=i, fixed_trial=i, bool_per=True)
+    simple_dqn_train(rand_seed=i, fixed_trial=i, bool_PER=True)
 
 
 for i in range(10, 20):
-    simple_dqn_train(rand_seed=i, bool_per=True)
+    simple_dqn_train(rand_seed=i, bool_PER=True)
