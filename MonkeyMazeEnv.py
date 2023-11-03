@@ -23,6 +23,7 @@ class MonkeyMazeEnv(gym.Env):
         self.window_size = 800
         self.size = 11  # 11 x 11 grid world
         self.no_reward = no_reward
+        self.no_small_reward = True
         self.monkey_only = False
         self.monkey_plot = False 
 
@@ -265,6 +266,8 @@ class MonkeyMazeEnv(gym.Env):
 
     def check_sub_reward(self):
         small_rewarded = False
+        if self.no_small_reward:
+            return small_rewarded
         if self.trial_small_reward.size == 0:
             return small_rewarded
 
