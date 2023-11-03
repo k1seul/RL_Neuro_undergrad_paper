@@ -275,7 +275,7 @@ class ModelBasedAgent():
         self.epsilon = max(self.epsilon_min, self.epsilon_decay_rate  * self.epsilon)
 
     def save_network_weight(self, trial_num=0):
-        if not(trial_num % 40 == 0 ):
+        if not(trial_num % 10 == 0 ):
             return 
         
         file_name = self.weight_data_dir + f"network_{str(trial_num)}.pkl"

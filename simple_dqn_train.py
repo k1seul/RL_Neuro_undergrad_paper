@@ -31,7 +31,7 @@ def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
     hyperparameters_file_path = "hyperparameters/" + game_name + ".json"
 
 
-    game_name = game_name + "_" + str(action_mask_bool)
+    game_name = game_name + "_" + str(rand_seed)
 
     with open(hyperparameters_file_path, "r") as file: 
         hyperparameters = json.load(file)
