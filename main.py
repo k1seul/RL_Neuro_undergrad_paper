@@ -3,6 +3,7 @@ from model_based_train import model_based_train
 from single_dqn_train import single_dqn_train
 from rand_train import rand_dqn_train
 from explore_agent_train import explore_dqn_train
+import gc
 """
 for i in range(8):
     simple_dqn_train(rand_seed=i, fixed_trial=i)
@@ -38,9 +39,11 @@ for sigmoid_weight in sigmoid_weights:
 
 
 
-for i in range(8):
+for i in range(4, 8):
     simple_dqn_train(rand_seed=i, fixed_trial=i, bool_PER=True)
+    gc.collect()
 
 
 for i in range(10, 20):
     simple_dqn_train(rand_seed=i, bool_PER=True)
+    gc.collect()
