@@ -38,6 +38,8 @@ class VanilaDqnAgent():
         self.epsilon_min = hyperparameters["epsilon_min"]
         self.epsilon_decay_rate = hyperparameters["epsilon_decay_rate"]
         self.bool_PER = bool_PER 
+        self.per_min = 0.1
+        self.per_max = 1.0
 
 
         ## expected reward mutiple 
@@ -114,6 +116,7 @@ class VanilaDqnAgent():
         td_error = abs(reward + self.gamma * max_next_q - current_q)
         priority = (td_error + self.TD_epsilon)*self.alpha
         priority = priority.cpu().detach().numpy() 
+        print(f"priority{priority}")
 
         self.td_error_memory.append(priority)
     

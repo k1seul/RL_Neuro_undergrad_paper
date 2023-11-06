@@ -150,6 +150,6 @@ def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
 
 
 if __name__ == "__main__":
-    simple_dqn_train(bool_per=True)
+    simple_dqn_train(rand_seed = 0,bool_PER=True)
 
         
