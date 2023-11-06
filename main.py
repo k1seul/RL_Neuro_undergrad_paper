@@ -12,12 +12,13 @@ for i in range(8):
     torch.cuda.empty_cache()
     gc.collect()
 
-"""
+
 
 for i in range(10, 15):
     simple_dqn_train(rand_seed=i)
     torch.cuda.empty_cache()
     gc.collect()
+"""
 
 
 
