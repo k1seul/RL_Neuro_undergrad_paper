@@ -7,13 +7,15 @@ import gc
 
 
 for i in range(8):
-    single_dqn_train(rand_seed=i, fixed_trial=i)
+    simple_dqn_train(rand_seed=i, fixed_trial=i)
     gc.collect()
 
-for i in range(10, 20):
-    single_dqn_train(rand_seed=i)
+for i in range(10, 15):
+    simple_dqn_train(rand_seed=i, fixed_trial=i)
     gc.collect()
 
+
+"""
 simulation_num = [2, 5, 10, 15, 20, 30]
 simulation_max_episode = [30, 12, 6, 4, 3, 2]
 
@@ -23,7 +25,7 @@ for i in range(6):
         gc.collect()
 
 
-"""
+
 for i in range(8):
     rand_dqn_train(rand_seed=i, fixed_trial=i)
     gc.collect()
