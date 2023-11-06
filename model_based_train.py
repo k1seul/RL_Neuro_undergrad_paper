@@ -23,10 +23,12 @@ def model_based_train(rand_seed = 0, simulation_num = 15, simulation_max_episode
     game_name = "Vanilla_model" 
     run_time = time.strftime('%m_%d_%H_%M_%S', time.localtime(time.time()))
 
-    game_name = game_name + f"{rand_seed}_sim{simulation_num}_max{simulation_max_episode}"
+    
     
     hyperparameters_file_path = "hyperparameters/" + game_name + ".json" 
 
+    game_name = game_name + f"/{rand_seed}_sim{simulation_num}_max{simulation_max_episode}"
+        
     with open(hyperparameters_file_path, "r") as file: 
         hyperparameters = json.load(file)
 
