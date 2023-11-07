@@ -141,12 +141,13 @@ def model_based_train(rand_seed = 0, simulation_num = 15, simulation_max_episode
                 total_length = total_length, data_saver = data_saver) 
 
         print("Episode: {}, total_reward: {:.2f}, epsilon: {:.2f}, length: {}".format(trial_num, total_reward, agent.epsilon, total_length))
+        agent.save_network_weight(trial_num = trial_num)
         if gif_plotting: 
             env.recrdr.save()
         env.close()
 
     writer.close() 
-    agent.save_network_weight(trial_num = trial_num)
+    
     data_saver.save_data() 
 
 

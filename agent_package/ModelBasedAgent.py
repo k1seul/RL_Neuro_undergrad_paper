@@ -42,6 +42,7 @@ class ModelBasedAgent():
 
 
         self.action_mask_bool = False 
+        self.weight_data_dir = None
 
         self.alpha = hyperparameters["PER_alpha"]
         self.TD_epsilon = hyperparameters["PER_TD_epsilon"] 
