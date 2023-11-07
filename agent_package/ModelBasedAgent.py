@@ -285,7 +285,7 @@ class ModelBasedAgent():
 
         for param in self.q_network.parameters():
             if param.requires_grad:
-                weights.append(param.data.view(-1).numpy())
+                weights.append(param.data.cpu().view(-1).numpy())
 
         # Convert the list of weights into a numpy array
         weights_array = np.concatenate(weights)

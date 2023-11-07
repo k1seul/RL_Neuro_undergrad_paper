@@ -139,6 +139,8 @@ def model_based_train(rand_seed = 0, simulation_num = 15, simulation_max_episode
         path_analytic_tool.get_all_path_analytic_out(agent = agent, agent_path = state_trajectories, agent_action_seq = action_trajectories,
                 monkey_path=trial_monkey_path, writer=writer, trial_num = trial_num, total_reward = total_reward, 
                 total_length = total_length, data_saver = data_saver) 
+        
+        os.system('cls' if os.name == 'nt' else 'clear')
 
         print("Episode: {}, total_reward: {:.2f}, epsilon: {:.2f}, length: {}".format(trial_num, total_reward, agent.epsilon, total_length))
         agent.save_network_weight(trial_num = trial_num)
