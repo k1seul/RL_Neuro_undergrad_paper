@@ -19,8 +19,6 @@ class VanilaDqnAgent():
 
         ## Agent action mask on or off 
         self.action_mask_bool = False
-
-
         self.state_size = state_size
         self.action_size = action_size
         self.hidden_size = hyperparameters["hidden_size"]

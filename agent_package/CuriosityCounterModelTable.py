@@ -292,24 +292,43 @@ class CuriosityCounterModelTable():
             episode_num += 1 
 
     
-    def model_simulate(self, agent=ModelBasedAgent, state=np.zeros(2), reset=True):
-      episode_num = 0 
-      for epi_repeat in range(self.simulation_num):
-         if reset:
-            goal_created = self.reset(only_goal=True)
-         
-         done = False 
+    def model_simulate(self, agent=ModelBasedAgent, state=np.zeros(2), reset=True, trial_num=None,data_saver=None, random = False):
+        episode_num = 0
+        if not(self.known_reward()):
+            return
 
-         while not(done): 
-            action = agent.act(state) 
-            next_state, reward, done = self.simulate_map(state, action)
+        start_state = np.copy(state)
 
-            if episode_num >= self.simulation_max_episode:
-               done = True 
-            
-            agent.remember(state, action, reward, next_state, done, model=True)
-            agent.replay(model=True)
-            episode_num += 1 
+        epsilon_save = agent.epsilon
+        if random:
+            agent.epsilon = 1
+
+        for epi_repeat in range(self.simulation_num):
+            state = np.copy(start_state)
+            if reset:
+                goal_created = self.reset(only_goal=True)
+
+            done = False
+
+            while not (done):
+                action = agent.act(state)
+                next_state, reward, done = self.simulate_map(state, action)
+
+                if not(data_saver is None):
+                    data_saver.record_visited_count(state=state, trial_num=trial_num, model=True)
+
+                if episode_num >= self.simulation_max_episode:
+                    done = True
+
+                agent.remember(state, action, reward, next_state, done, model=True)
+                agent.replay(model=True)
+                episode_num += 1
+                state = np.copy(next_state)
+
+                
+        if random:
+            agent.epsilon = epsilon_save
+
         
 
     

@@ -1,6 +1,7 @@
 from .VanillaDqnAgent import VanilaDqnAgent
 from .SoftmaxDqnAgent import SoftmaxDqnAgent
 from .ModelBasedAgent import ModelBasedAgent
+from .CuriosityBasedAgent import CuriosityBasedAgent
 from .VanillaModelTable import VanillaModelTable
 from .CuriosityCounterModelTable import CuriosityCounterModelTable
 from .SuccessorRepresentAgent import SuccessorRepresentAgent

@@ -8,6 +8,7 @@ import plotting_functions
 from torch.utils.tensorboard import SummaryWriter
 from pre_train import pre_train 
 from directory_setting import directory_setting 
+import json
 
 
 
@@ -22,25 +23,22 @@ def curiosity_based_train(rand_seed = 0, maxent=False, simulation_num = 3, simul
     trial_length = monkey_path.trial_num
     game_name = "Curiosity_counter_model" if not(maxent) else "Curiosity_maxent_model"
 
+    hyperparameters_file_path = "hyperparameters/" + game_name + ".json"
+    with open(hyperparameters_file_path, "r") as file: 
+        hyperparameters = json.load(file)
     data_dir, data_saver, writer = directory_setting(game_name, monkey_name,
         task_info=f"simple {game_name} training with pretrain {bool_pre_train} and PER {bool_PER}",
         run_num = rand_seed)
+    
+    game_name = game_name + "_" + str(rand_seed)
     ## agent_setting 
     state_size = env.state_n
     action_size = env.action_n
-    hidden_size = 512
-    learning_rate = 0.001
-    memory_size = 10000
-    batch_size = 128
-    gamma = 0.99
+    
 
-    agent = agent_package.ModelBasedAgent(state_size = state_size,
+    agent = agent_package.CuriosityBasedAgent(state_size = state_size,
                                             action_size = action_size,
-                                            hidden_size = hidden_size,
-                                            learning_rate = learning_rate,
-                                            memory_size = memory_size,
-                                            batch_size = batch_size,
-                                            gamma = gamma,
+                                            hyperparameters=hyperparameters,
                                             explore_agent = True) 
     
     model = agent_package.CuriosityCounterModelTable(data_dir = data_dir)
@@ -48,6 +46,9 @@ def curiosity_based_train(rand_seed = 0, maxent=False, simulation_num = 3, simul
 
     agent.random_seed(rand_seed)
     model.random_seed(rand_seed) 
+    agent.weight_data_dir = data_dir + f"network_weight/"
+    if not(os.path.exists(agent.weight_data_dir)):
+        os.makedirs(agent.weight_data_dir)
 
     if bool_pre_train:
         pre_train(agent=agent, model=model) 
@@ -106,10 +107,13 @@ def curiosity_based_train(rand_seed = 0, maxent=False, simulation_num = 3, simul
             state_trajectories.append(state)
             action_trajectories.append(action)
             state = next_state
+            finished = done or truncated
+            data_saver.record_visited_count(state = state, trial_num = trial_num, model = False)
+
 
             reward_known = model.known_reward() 
             if reward_known:
-                model.model_simulate(agent, state) 
+                model.model_simulate(agent = agent, state = state, reset = True,trial_num=trial_num, data_saver=data_saver)
                 model.curiosity_simulate(agent, state)
             else: 
                 model.curiosity_simulate(agent, state, exploit_update=True, maxent_update=maxent)
@@ -130,7 +134,9 @@ def curiosity_based_train(rand_seed = 0, maxent=False, simulation_num = 3, simul
         path_analytic_tool.get_all_path_analytic_out(agent = agent, agent_path = state_trajectories, agent_action_seq = action_trajectories,
                 monkey_path=trial_monkey_path, writer=writer, trial_num = trial_num, total_reward = total_reward, 
                 total_length = total_length, data_saver = data_saver) 
-
+        agent.save_network_weight(trial_num = trial_num)
+        data_saver.save_visited_count()
+        os.system('cls' if os.name == 'nt' else 'clear')
         print("Episode: {}, total_reward: {:.2f}, epsilon: {:.2f}, length: {}".format(trial_num, total_reward, agent.epsilon, total_length))
         if gif_plotting: 
             env.recrdr.save()

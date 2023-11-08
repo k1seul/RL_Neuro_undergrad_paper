@@ -15,12 +15,12 @@ class cross_ent_loss(nn.Module):
         
     def forward(self, exploit_q_values , explore_q_values):
         
-        soft_max_exploit = torch.softmax(exploit_q_values, dim=0)
-        soft_max_explore = torch.softmax(explore_q_values, dim=0)
+        soft_max_exploit = torch.softmax(exploit_q_values - torch.mean(exploit_q_values), dim=-1)
+        soft_max_explore = torch.softmax(explore_q_values - torch.mean(explore_q_values), dim=-1)
 
         log_exploit_prob = torch.log(soft_max_exploit + self.eps)
-
-        loss = -torch.mean(log_exploit_prob * soft_max_explore)
+        print(f"log_eploit: {soft_max_exploit.cpu().detach().numpy()} \n soft_explore: {soft_max_explore.cpu().detach().numpy()}")
+        loss = -torch.mean(log_exploit_prob *  soft_max_explore)
         ##print("advantage:", advantage, "prob:", soft_max_p_values, "'\nloss:", loss, "\nwtf:", wtf)
 
         return loss 
@@ -29,29 +29,31 @@ class cross_ent_loss(nn.Module):
 
 class CuriosityBasedAgent():
     """ simple DQN agent """
-    def __init__(self, state_size, action_size, hidden_size, learning_rate,
-                 memory_size, batch_size, gamma,
+    def __init__(self, state_size, action_size, 
+                 hyperparameters,
                  policy_network="Q_network",
                  explore_agent = False,
                  seed_value = 0): 
         
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         print("currently running on" + str(self.device))
+        self.weight_data_dir = None
 
         self.gpu_usage = True if torch.cuda.is_available() else False 
 
         self.alpha = 0.9
         self.state_size = state_size 
-        self.hidden_size = hidden_size 
-        self.action_size = action_size 
-        self.learning_rate = learning_rate 
-
+        self.action_size = action_size
+        self.hidden_size = hyperparameters["hidden_size"]
+        self.learning_rate = hyperparameters["learning_rate"] 
         ## PER hyperparameters (change it later)
-        self.alpha = 0.6
         
-        self.batch_size = batch_size
-        self.memory_size = memory_size 
-        self.gamma = gamma 
+        self.batch_size = hyperparameters["batch_size"]
+        self.memory_size = hyperparameters["memory_size"]
+        self.gamma = hyperparameters["gamma"]
+        self.epsilon = hyperparameters["epsilon"]
+        self.epsilon_min = hyperparameters["epsilon_min"]
+        self.epsilon_decay_rate = hyperparameters["epsilon_decay_rate"]
         self.experience_memory = deque(maxlen=self.memory_size)
         self.env_size = 11 
 
@@ -69,7 +71,7 @@ class CuriosityBasedAgent():
 
         if policy_network == 'Q_network':
             print("policy network is currently q network")
-            self.q_network = QNetwork(self.state_size, action_size, hidden_size, seed=seed_value).to(self.device)
+            self.q_network = QNetwork(self.state_size, action_size, self.hidden_size, seed=seed_value).to(self.device)
         elif policy_network == 'LSTM_Q':
             print("policy_network is currently LSTM network")
             self.q_network = LSTM_Q(self.state_size, action_size, hidden_size).to(self.device)
@@ -95,7 +97,7 @@ class CuriosityBasedAgent():
         self.explore_optimizer = optim.Adam(self.explore_q_network.parameters(), lr=self.learning_rate)
         self.explore_criterion = nn.MSELoss() 
 
-        self.max_ent_optim = optim.Adam(self.q_network.parameters(), lr= 0.0001)
+        self.max_ent_optim = optim.Adam(self.q_network.parameters(), lr= self.learning_rate)
         self.max_ent_loss = cross_ent_loss()
 
 
@@ -127,6 +129,20 @@ class CuriosityBasedAgent():
                 return np.random.randint(self.action_size)
             else:
                 return np.argmax(q_values.cpu().numpy())
+        """
+        if np.random.rand() <= self.epsilon and not(max_option):
+            return np.random.randint(self.action_size) 
+        else:
+            state_tensor = torch.Tensor(state).to(self.device)
+
+            with torch.no_grad():
+                q_values = self.q_network(state_tensor)
+                q_values = q_values.cpu().numpy() * info ## info in the action mask 
+                max_action = np.argmax(q_values) 
+    
+          
+                return max_action
+        """
             
     def explore_act(self, state, max_option=False):
 
@@ -221,13 +237,49 @@ class CuriosityBasedAgent():
         self.explore_optimizer.step()
     
     def maxent_replay(self, state, td_sample=False):
-        state = torch.Tensor(state).to(self.device)
-        exploit_q_values = self.q_network(state)
-        explore_q_values = self.explore_q_network(state)
 
+        if len(self.explore_memory) < self.batch_size:
+            return 
+        else:
+            minibatch = random.sample(self.explore_memory, self.batch_size) 
+
+        states = torch.FloatTensor(np.array([t[0] for t in minibatch])).to(self.device)
+        exploit_q_values = self.q_network(states)
+        explore_q_values = self.explore_q_network(states)
         loss = self.max_ent_loss(exploit_q_values, explore_q_values) 
         self.max_ent_optim.zero_grad()
         loss.backward()
         self.max_ent_optim.step()
+    
+    def decay_epsilon(self):
+        self.epsilon = max(self.epsilon_min, self.epsilon_decay_rate  * self.epsilon)
+
+
+    def save_network_weight(self, trial_num=0):
+        if not(trial_num % 10 == 0 ):
+            return 
+        exploit_file_name = self.weight_data_dir + f"exploit_network_{str(trial_num)}.pkl"
+        exploit_weights = []
+        explore_file_name = self.weight_data_dir + f"explore_network_{str(trial_num)}.pkl"
+        explore_weights = []
+
+        for param in self.q_network.parameters():
+            if param.requires_grad:
+                exploit_weights.append(param.data.cpu().view(-1).numpy())
+
+        for param in self.explore_q_network.parameters():
+            if param.requires_grad:
+                explore_weights.append(param.data.cpu().view(-1).numpy())
+
+        # Convert the list of weights into a numpy array
+        exploit_weights_array = np.concatenate(exploit_weights)
+        explore_weights_array = np.concatenate(explore_weights)
+
+
+
+        with open(exploit_file_name, 'wb') as f:
+            pickle.dump(exploit_weights_array, f)
+        with open(explore_file_name, 'wb') as f:
+            pickle.dump(explore_weights_array, f)
 
         
