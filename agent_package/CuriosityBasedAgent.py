@@ -121,7 +121,7 @@ class CuriosityBasedAgent():
 
     def act(self, state, max_option=False):
         
-    
+        """
         state_tensor = torch.Tensor(state).to(self.device)
 
         with torch.no_grad():
@@ -143,7 +143,7 @@ class CuriosityBasedAgent():
     
           
                 return max_action
-        """
+        
             
     def explore_act(self, state, max_option=False):
 
