@@ -242,7 +242,7 @@ class CuriosityBasedAgent():
         if len(self.explore_memory) < self.batch_size:
             return 
         else:
-            minibatch = random.sample(self.explore_memory, self.batch_size) 
+            minibatch = random.sample(self.explore_memory, 10) 
 
         states = torch.FloatTensor(np.array([t[0] for t in minibatch])).to(self.device)
         exploit_q_values = self.q_network(states)
