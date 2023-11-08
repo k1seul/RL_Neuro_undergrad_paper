@@ -233,7 +233,7 @@ class CuriosityCounterModelTable():
        if np.sum(counter_matrix) == 0:
           return 0
        next_state_percentage = counter_matrix[next_state[0]][next_state[1]] / np.max(counter_matrix)
-       info_reward = - math.log(next_state_percentage + 0.1) -0.5
+       info_reward = - 8 * math.log(next_state_percentage + 0.1) -4.08660499
        return info_reward
     
 
