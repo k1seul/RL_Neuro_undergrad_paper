@@ -5,6 +5,7 @@ import torch.optim as optim
 from collections import deque 
 import random 
 import numpy as np 
+import pickle
 
 
 class cross_ent_loss(nn.Module):
