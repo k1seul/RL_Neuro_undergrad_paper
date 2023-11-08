@@ -23,7 +23,7 @@ def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 3, simula
     trial_length = monkey_path.trial_num
     game_name = "Curiosity_counter_model" if not(maxent) else "Curiosity_maxent_model"
 
-    hyperparameters_file_path = "hyperparameters/" + game_name + ".json"
+    hyperparameters_file_path = "hyperparameters/" + "Curiosity_counter_model" + ".json"
     with open(hyperparameters_file_path, "r") as file: 
         hyperparameters = json.load(file)
     data_dir, data_saver, writer = directory_setting(game_name, monkey_name,
