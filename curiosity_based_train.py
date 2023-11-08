@@ -12,7 +12,7 @@ import json
 
 
 
-def curiosity_based_train(rand_seed = 0, maxent=False, simulation_num = 3, simulation_max_episode = 20):
+def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 3, simulation_max_episode = 20):
 
     gif_plotting = False      
     monkey_name = "p" 
@@ -112,7 +112,7 @@ def curiosity_based_train(rand_seed = 0, maxent=False, simulation_num = 3, simul
 
 
             reward_known = model.known_reward() 
-            
+
             if reward_known:
                 model.model_simulate(agent = agent, state = state, reset = True,trial_num=trial_num, data_saver=data_saver)
                 model.curiosity_simulate(agent, state)
