@@ -138,7 +138,7 @@ class CuriosityBasedAgent():
 
             with torch.no_grad():
                 q_values = self.q_network(state_tensor)
-                q_values = q_values.cpu().numpy() * info ## info in the action mask 
+                q_values = q_values.cpu().numpy() ## info in the action mask 
                 max_action = np.argmax(q_values) 
     
           
