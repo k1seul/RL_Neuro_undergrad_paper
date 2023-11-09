@@ -41,7 +41,7 @@ class DataSaver():
             self.agent_counter[state[0], state[1]] += 1
     def save_visited_count(self):
         self.agent_visited_count.append(self.agent_counter)
-        self.model_visited_count.append([self.model_counter, curiosity_counter])
+        self.model_visited_count.append([self.model_counter, self.curiosity_counter])
         
 
         
