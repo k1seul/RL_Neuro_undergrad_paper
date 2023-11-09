@@ -25,19 +25,23 @@ class DataSaver():
         self.model_counter = np.zeros([11,11])
         self.trial_num_memory = -1
 
-    def record_visited_count(self, state, trial_num, model=False):
+    def record_visited_count(self, state, trial_num, model=False, curiosity=False):
         if not(self.trial_num_memory == trial_num):
             self.agent_counter = np.zeros([11,11])
             self.model_counter = np.zeros([11,11])
+            self.curiosity_counter = np.zeros([11,11])
             self.trial_num_memory = trial_num
         
         if model:
-            self.model_counter[state[0], state[1]] += 1
+            if not(curiosity):
+                self.model_counter[state[0], state[1]] += 1
+            else:
+                self.curiosity_counter[state[0], state[1]] += 1
         else:
             self.agent_counter[state[0], state[1]] += 1
     def save_visited_count(self):
         self.agent_visited_count.append(self.agent_counter)
-        self.model_visited_count.append(self.model_counter)
+        self.model_visited_count.append([self.model_counter, curiosity_counter])
         
 
         

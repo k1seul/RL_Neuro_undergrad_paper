@@ -115,9 +115,9 @@ def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 3, simula
 
             if reward_known:
                 model.model_simulate(agent = agent, state = state, reset = True,trial_num=trial_num, data_saver=data_saver)
-                model.curiosity_simulate(agent, state)
+                model.curiosity_simulate(agent, state, trial_num=trial_num, data_saver=data_saver)
             else: 
-                model.curiosity_simulate(agent, state, exploit_update=True, maxent_update=maxent)
+                model.curiosity_simulate(agent, state, exploit_update=True, maxent_update=maxent, trial_num=trial_num, data_saver=data_saver)
         
 
             plotting_functions.plot_all_functions(agent = agent, model = model, i_episode = trial_num,
