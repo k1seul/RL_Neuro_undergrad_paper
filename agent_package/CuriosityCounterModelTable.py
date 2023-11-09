@@ -253,7 +253,7 @@ class CuriosityCounterModelTable():
        
     
     def curiosity_simulate(self, agent=ModelBasedAgent, state=np.zeros(2), reset=True, exploit_update=False, maxent_update=False,
-                           , trial_num=None,data_saver=None, random = False): 
+                           trial_num=None,data_saver=None, random = False): 
 
 
       state_start = np.copy(state) 
