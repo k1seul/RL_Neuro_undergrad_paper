@@ -179,6 +179,7 @@ class CuriosityCounterModelTable():
       else:
          next_state = state
          reward = -0.1
+         return next_state, reward, done
 
       
 
@@ -215,9 +216,8 @@ class CuriosityCounterModelTable():
       if np.array_equal(state, next_state): 
          wall_hit = True
          reward = -0.1 
-      else: 
-         reward = -0.1 
-         wall_hit = False 
+      else:
+         wall_hit = False
 
        
 
@@ -258,11 +258,12 @@ class CuriosityCounterModelTable():
       state_start = np.copy(state) 
       ## if you want to use the same memory for all simulations, uncomment the following line 
       ## (without memory deletion for every simulation)
+      self.exploration_memory = deque(maxlen=1000) 
       
 
       for epi_repeat in range(self.simulation_num):
          state = np.copy(state_start)
-         self.exploration_memory = deque(maxlen=1000) 
+         
          
          episode_num = 0 
 

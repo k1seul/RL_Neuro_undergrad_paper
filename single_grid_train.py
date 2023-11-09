@@ -18,7 +18,7 @@ def single_grid_train(rand_seed = 0, soft_max = False, action_mask_bool = False,
     bool_pre_train = False
     env = GridWorld()
 
-    random_agent = False
+    random_agent = True
 
     game_name = "single_grid_dqn" if not(random_agent) else "single_grid_random_agent"
 
@@ -63,7 +63,7 @@ def single_grid_train(rand_seed = 0, soft_max = False, action_mask_bool = False,
 
     env.close()
 
-    for trial_num in range(1000):
+    for trial_num in range(500):
 
         if random_agent:
             agent.epsilon = 1
