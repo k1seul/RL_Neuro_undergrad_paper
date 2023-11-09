@@ -291,6 +291,8 @@ class CuriosityCounterModelTable():
                  agent.replay(model=True)
                
             episode_num += 1 
+            if episode_num % 15 == 0:
+               print(reward)
 
     
     def model_simulate(self, agent=ModelBasedAgent, state=np.zeros(2), reset=True, trial_num=None,data_saver=None, random = False):
