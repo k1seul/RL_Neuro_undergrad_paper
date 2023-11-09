@@ -221,8 +221,8 @@ class CuriosityCounterModelTable():
 
        
 
-      if not(wall_hit):
-         reward = self.calculate_curiosity_reward(next_state) 
+   
+      reward = reward + self.calculate_curiosity_reward(next_state) 
 
       return next_state, reward, done 
 
