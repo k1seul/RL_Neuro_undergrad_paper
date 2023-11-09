@@ -16,6 +16,7 @@ class CuriosityCounterModelTable():
       self.model_map = np.zeros([table_size, table_size])
       self.play_map = self.model_map
       self.play_small_reward = [] 
+      self.exploration_memory = deque(maxlen=1000) 
 
       self.road_index = 1 
 
@@ -259,7 +260,7 @@ class CuriosityCounterModelTable():
       state_start = np.copy(state) 
       ## if you want to use the same memory for all simulations, uncomment the following line 
       ## (without memory deletion for every simulation)
-      self.exploration_memory = deque(maxlen=1000) 
+      
       
 
       for epi_repeat in range(self.simulation_num):
