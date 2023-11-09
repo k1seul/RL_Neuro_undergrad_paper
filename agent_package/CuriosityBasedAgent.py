@@ -20,7 +20,6 @@ class cross_ent_loss(nn.Module):
         soft_max_explore = torch.softmax(explore_q_values - torch.mean(explore_q_values), dim=-1)
 
         log_exploit_prob = torch.log(soft_max_exploit + self.eps)
-        print(f"log_eploit: {soft_max_exploit.cpu().detach().numpy()} \n soft_explore: {soft_max_explore.cpu().detach().numpy()}")
         loss = -torch.mean(log_exploit_prob *  soft_max_explore)
         ##print("advantage:", advantage, "prob:", soft_max_p_values, "'\nloss:", loss, "\nwtf:", wtf)
 
