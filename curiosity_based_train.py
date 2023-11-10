@@ -12,7 +12,7 @@ import json
 
 
 
-def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 3, simulation_max_episode = 20):
+def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 3, simulation_max_episode = 20, random_explore = False):
 
     gif_plotting = False      
     monkey_name = "p" 
@@ -21,7 +21,7 @@ def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 3, simula
     env = MonkeyMazeEnv() 
     monkey_path = MonkeyPath(monkey_name=monkey_name)
     trial_length = monkey_path.trial_num
-    game_name = "Curiosity_counter_model" if not(maxent) else "Curiosity_maxent_model"
+    game_name = "Curiosity_maxent_model" if not(random_explore) else "Curiosity_maxent_random_model"
 
     hyperparameters_file_path = "hyperparameters/" + "Curiosity_counter_model" + ".json"
     with open(hyperparameters_file_path, "r") as file: 
@@ -115,9 +115,9 @@ def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 3, simula
 
             if reward_known:
                 model.model_simulate(agent = agent, state = state, reset = True,trial_num=trial_num, data_saver=data_saver)
-                model.curiosity_simulate(agent, state, trial_num=trial_num, data_saver=data_saver)
+                model.curiosity_simulate(agent, state, trial_num=trial_num, data_saver=data_saver, random=random_explore)
             else: 
-                model.curiosity_simulate(agent, state, exploit_update=True, maxent_update=maxent, trial_num=trial_num, data_saver=data_saver)
+                model.curiosity_simulate(agent, state, exploit_update=True, maxent_update=maxent, trial_num=trial_num, data_saver=data_saver, random=random_explore)
         
 
             plotting_functions.plot_all_functions(agent = agent, model = model, i_episode = trial_num,
@@ -148,7 +148,7 @@ def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 3, simula
 
 
 if __name__ == "__main__":
-    curiosity_based_train() 
+    curiosity_based_train(random_explore=True) 
 
             
 

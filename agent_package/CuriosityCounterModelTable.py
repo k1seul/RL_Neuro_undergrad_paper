@@ -276,7 +276,7 @@ class CuriosityCounterModelTable():
 
          while not(done): 
             self.exploration_memory.append(state) 
-            action = agent.explore_act(state) 
+            action = agent.explore_act(state, max_option=False, random = random) 
             next_state, reward, done = self.curiosity_reward_simulate(state, action)
 
             if episode_num >= self.simulation_max_episode:

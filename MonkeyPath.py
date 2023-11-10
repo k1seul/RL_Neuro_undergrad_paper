@@ -54,6 +54,20 @@ class MonkeyPath:
         end_locations = list(end_locations)
         return end_locations
     
+    def get_reward(self, trial_num):
+        reward = 8
+        trial_path = self.get_trial(trial_num)
+        small_reward = np.array(
+            [[3, 4], [3, 8], [5, 6], [6, 9], [1, 2], [1, 6], [7, 4], [7, 2]]
+        )
+        for small_reward_pos in small_reward:
+            for trial_path_point in trial_path:
+                if (small_reward_pos == trial_path_point).all():
+                    reward += 1
+                    break
+
+        return reward
+    
 
     
     
@@ -69,7 +83,4 @@ class MonkeyPath:
 
 if __name__ == "__main__":
     monkey_path = MonkeyPath()
-    print(monkey_path.get_trial(0))
-    print(monkey_path.get_goal_position(0))
-    print(monkey_path.end_locations())
-    print(monkey_path.goal_index)
+    print(monkey_path.get_reward(2))
