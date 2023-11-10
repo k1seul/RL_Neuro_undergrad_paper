@@ -144,9 +144,12 @@ class CuriosityBasedAgent():
                 return max_action
         
             
-    def explore_act(self, state, max_option=False):
+    def explore_act(self, state, max_option=False, random_explore=False):
 
         explore_percentage = 0.5
+        if random_explore:
+            return np.random.randint(self.action_size)
+        
         if np.random.rand() <= explore_percentage and not(max_option):
             return np.random.randint(self.action_size)
 

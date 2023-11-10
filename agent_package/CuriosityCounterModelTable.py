@@ -254,7 +254,7 @@ class CuriosityCounterModelTable():
        
     
     def curiosity_simulate(self, agent=ModelBasedAgent, state=np.zeros(2), reset=True, exploit_update=False, maxent_update=True,
-                           trial_num=None,data_saver=None, random = False): 
+                           trial_num=None,data_saver=None, random_explore = False): 
 
 
       state_start = np.copy(state) 
@@ -276,7 +276,7 @@ class CuriosityCounterModelTable():
 
          while not(done): 
             self.exploration_memory.append(state) 
-            action = agent.explore_act(state, max_option=False, random = random) 
+            action = agent.explore_act(state, max_option=False, random = random_explore) 
             next_state, reward, done = self.curiosity_reward_simulate(state, action)
 
             if episode_num >= self.simulation_max_episode:
