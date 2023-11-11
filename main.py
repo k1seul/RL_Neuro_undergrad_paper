@@ -5,6 +5,7 @@ from rand_train import rand_dqn_train
 from explore_agent_train import explore_dqn_train
 import gc
 import torch
+from curiosity_based_train import curiosity_based_train
 
 """
 for i in range(8):
@@ -18,7 +19,7 @@ for i in range(10, 15):
     simple_dqn_train(rand_seed=i)
     torch.cuda.empty_cache()
     gc.collect()
-"""
+
 
 
 
@@ -31,7 +32,7 @@ for i in range(6):
         torch.cuda.empty_cache()
         gc.collect()
 
-"""
+
 
 for i in range(8):
     rand_dqn_train(rand_seed=i, fixed_trial=i)
@@ -55,3 +56,8 @@ for i in range(10, 20):
     torch.cuda.empty_cache()
     gc.collect()
 """
+
+
+for i in range(10, 15):
+    curiosity_based_train(rand_seed=i, random_explore= True)
+
