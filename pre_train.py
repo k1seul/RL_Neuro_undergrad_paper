@@ -42,10 +42,10 @@ def pre_train(agent = Agent, model = Model, episode_num = 10, epsilon_skip=False
 
             agent.remember(state, action, reward, next_state, done)
             if model_based and model.world_knowledge_percentage():
-                try:
-                    model.curiosity_simulate(agent=agent, state=next_state, exploit_update = True)
-                except:
-                    model.model_simulate(agent=agent, state=next_state)
+                #try:
+                model.curiosity_simulate(agent=agent, state=next_state, exploit_update = True, pre_train=True)
+                #except:
+                model.model_simulate(agent=agent, state=next_state)
             agent.replay() 
 
             state = next_state
