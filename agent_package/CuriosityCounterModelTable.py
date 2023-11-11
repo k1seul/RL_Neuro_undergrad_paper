@@ -263,7 +263,7 @@ class CuriosityCounterModelTable():
       
       
 
-      for epi_repeat in range(self.simulation_num):
+      for epi_repeat in range(10):#self.simulation_num):
          state = np.copy(state_start)
          
          
@@ -279,7 +279,7 @@ class CuriosityCounterModelTable():
             action = agent.explore_act(state= state, max_option=False, random_explore = random_explore) 
             next_state, reward, done = self.curiosity_reward_simulate(state, action)
 
-            if episode_num >= self.simulation_max_episode:
+            if episode_num >= 10:#self.simulation_max_episode:
                done = True 
 
             agent.remember(state, action, reward, next_state, done, model=False, explore=True)
