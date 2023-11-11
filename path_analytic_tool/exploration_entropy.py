@@ -1,4 +1,7 @@
 import numpy as np 
+import sys , os 
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+from MonkeyPath import MonkeyPath
 
 
 def exploration_entropy(path):
@@ -21,10 +24,16 @@ def exploration_entropy(path):
 
 if __name__ == "__main__":
     import pickle
+    
+    MkPath = MonkeyPath()
+    explore_percentage_list = []
+    entropy_list = [] 
+    for i in range(519):
+        entropy = exploration_entropy(MkPath.get_trial(i))
+        explore_percentage_list.append(entropy[1])
+        entropy_list.append(entropy[0])
 
-    with open("example_trajectories", "rb") as f:
-        example_path = pickle.load(f)
-    print(example_path)
+    explore_extropy_dict = {"explore_percentage":explore_percentage_list, "entropy":entropy_list}
 
-    entropy = exploration_entropy(example_path)
-    print(entropy)
+    with open("explore_extropy_dict.pkl", "wb") as f:
+        pickle.dump(explore_extropy_dict, f)
