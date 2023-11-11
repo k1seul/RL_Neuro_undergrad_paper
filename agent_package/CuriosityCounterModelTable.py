@@ -263,7 +263,7 @@ class CuriosityCounterModelTable():
       
       
 
-      for epi_repeat in range(10):#self.simulation_num):
+      for epi_repeat in range(5):#self.simulation_num):
          state = np.copy(state_start)
          
          
