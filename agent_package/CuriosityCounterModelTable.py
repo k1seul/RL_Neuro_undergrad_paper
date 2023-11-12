@@ -10,7 +10,7 @@ import os
 
 
 class CuriosityCounterModelTable(): 
-    def __init__(self, table_size=11, memory_size=5, data_dir='img/', img_save=False):
+    def __init__(self, table_size=11, memory_size=3, data_dir='img/', img_save=False):
         
       self.env_size = table_size 
       self.model_map = np.zeros([table_size, table_size])
@@ -103,7 +103,7 @@ class CuriosityCounterModelTable():
       map_changed = False if self.world_knowledge_before == self.world_knowledge_percentage(node_num = True) else True
       self.world_knowledge_before = self.world_knowledge_percentage(node_num = True)
 
-      if self.isin_mem(self.reward_location_memory, state) and not(done):
+      if self.isin_mem(self.reward_location_memory, np.array(state)) and not(done):
         self.reward_location_memory.pop() 
         self.reset(only_goal = True)
         
