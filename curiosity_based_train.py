@@ -117,7 +117,7 @@ def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 3, simula
                 model.model_simulate(agent = agent, state = state, reset = True,trial_num=trial_num, data_saver=data_saver)
                 model.curiosity_simulate(agent, state, trial_num=trial_num, data_saver=data_saver, random_explore=random_explore)
             else: 
-                if total_length % 100 == 0:
+                if total_length % 40 == 0:
                     print("reward not known!")
                 model.curiosity_simulate(agent, state, exploit_update=True, maxent_update=maxent, trial_num=trial_num, data_saver=data_saver, random_explore=random_explore)
         
