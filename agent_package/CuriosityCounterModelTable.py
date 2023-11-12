@@ -109,7 +109,7 @@ class CuriosityCounterModelTable():
         
       self.model_map[state[0]][state[1]] = 1
 
-      if done:
+      if done and reward > 5:
          self.reward_location_memory.append(np.array(state)) 
       elif reward > 0 and not(self.known_small_reward(state = state)):
          self.small_reward_location_memory.append(np.array(state)) 
