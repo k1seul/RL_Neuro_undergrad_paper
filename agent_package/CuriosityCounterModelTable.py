@@ -16,7 +16,7 @@ class CuriosityCounterModelTable():
       self.model_map = np.zeros([table_size, table_size])
       self.play_map = self.model_map
       self.play_small_reward = [] 
-      self.exploration_memory = deque(maxlen=1000) 
+      self.exploration_memory = deque(maxlen=5000) 
 
       self.road_index = 1 
 
