@@ -8,7 +8,7 @@ import os
 
 
 class VanillaModelTable:
-    def __init__(self, table_size=11, memory_size=5, data_dir="img/", img_save=False):
+    def __init__(self, table_size=11, memory_size=3, data_dir="img/", img_save=False):
 
         self.env_size = table_size
         self.model_map = np.zeros([table_size, table_size])
@@ -104,13 +104,13 @@ class VanillaModelTable:
         )
         self.world_knowledge_before = self.world_knowledge_percentage(node_num=True)
 
-        if self.isin_mem(self.reward_location_memory, state) and not (done):
+        if self.isin_mem(self.reward_location_memory, np.array(state)) and not (done):
             self.reward_location_memory.pop()
             self.reset(only_goal=True)
 
         self.model_map[state[0]][state[1]] = 1
 
-        if done:
+        if done and reward > 5:
             self.reward_location_memory.append(np.array(state))
         elif reward > 0 and not (self.known_small_reward(state=state)):
             self.small_reward_location_memory.append(np.array(state))
