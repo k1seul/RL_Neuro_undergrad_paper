@@ -17,7 +17,7 @@ for i in range(8):
 """
 
 for i in range(10, 15):
-    rand_dqn_train(rand_seed=i, fixed_trial=i)
+    rand_dqn_train(rand_seed=i)
 
 for i in range(10, 15):
     simple_dqn_train(rand_seed=i)
