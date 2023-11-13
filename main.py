@@ -62,7 +62,7 @@ for i in range(2):
     gc.collect()
 
 
-for i in range(24, 35):
+for i in range(30,32):
     curiosity_based_train(rand_seed=i, random_explore= True)
     torch.cuda.empty_cache()
     gc.collect()
