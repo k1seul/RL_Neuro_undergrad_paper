@@ -108,11 +108,11 @@ def rand_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, fi
             total_reward += reward 
             total_length += 1 
 
-            agent.remember(state, action, agent_reward, next_state, done)
+            #agent.remember(state, action, agent_reward, next_state, done)
 
             
 
-            agent.single_replay()
+            #agent.single_replay()
 
             state_trajectories.append(state)
             action_trajectories.append(action)
