@@ -8,7 +8,7 @@
     "batch_size": 128, 
     "gamma": 0.99,
 
-    "PER_TD_epsilon": 0.0001,
+    "PER_TD_epsilon": 1,
     "PER_alpha": 0.2,
     "expected_reward_alpha": 0.1 
 
