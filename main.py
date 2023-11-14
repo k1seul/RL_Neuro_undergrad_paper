@@ -21,7 +21,7 @@ for i in range(10, 15):
 """
 
 for i in range(20,22):
-    simple_dqn_train(rand_seed=i, bool_PER=True)
+    simple_dqn_train(rand_seed=i,fixed_trial=(i-20), bool_PER=True)
     torch.cuda.empty_cache()
     gc.collect()
 
