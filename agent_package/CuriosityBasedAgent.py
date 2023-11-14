@@ -258,12 +258,14 @@ class CuriosityBasedAgent():
         self.epsilon = max(self.epsilon_min, self.epsilon_decay_rate  * self.epsilon)
 
 
-    def save_network_weight(self, trial_num=0):
-        if not(trial_num % 10 == 0 ):
-            return 
-        exploit_file_name = self.weight_data_dir + f"exploit_network_{str(trial_num)}.pkl"
+    def save_network_weight(self, trial_num=0, episode_num=None):
+        #if not(trial_num % 10 == 0 ):
+        #    return 
+        if episode_num is None or not(episode_num % 50 == 0):
+            return
+        exploit_file_name = self.weight_data_dir + f"exploit_network_{str(trial_num)}_{str(episode_num)}.pkl"
         exploit_weights = []
-        explore_file_name = self.weight_data_dir + f"explore_network_{str(trial_num)}.pkl"
+        explore_file_name = self.weight_data_dir + f"explore_network_{str(trial_num)}_{str(episode_num)}.pkl"
         explore_weights = []
 
         for param in self.q_network.parameters():

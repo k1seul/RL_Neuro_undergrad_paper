@@ -125,6 +125,7 @@ def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 3, simula
             plotting_functions.plot_all_functions(agent = agent, model = model, i_episode = trial_num,
                                                   trial_t = trial_t, state = state,
                                                   reward_location = trial_goal, data_dir = data_dir, dual_policy=True)
+            agent.save_network_weight(trial_num = trial_num, episode_num=total_length)
             
         if done:
             agent.decay_epsilon() 
@@ -137,7 +138,7 @@ def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 3, simula
         path_analytic_tool.get_all_path_analytic_out(agent = agent, agent_path = state_trajectories, agent_action_seq = action_trajectories,
                 monkey_path=trial_monkey_path, writer=writer, trial_num = trial_num, total_reward = total_reward, 
                 total_length = total_length, data_saver = data_saver) 
-        agent.save_network_weight(trial_num = trial_num)
+        
         data_saver.save_visited_count()
         os.system('cls' if os.name == 'nt' else 'clear')
         print("Episode: {}, total_reward: {:.2f}, epsilon: {:.2f}, length: {}".format(trial_num, total_reward, agent.epsilon, total_length))
@@ -150,7 +151,7 @@ def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 3, simula
 
 
 if __name__ == "__main__":
-    curiosity_based_train(random_explore=True) 
+    curiosity_based_train(rand_seed=55, random_explore=True) 
 
             
 
