@@ -49,7 +49,7 @@ def model_based_train(rand_seed = 0, simulation_num = 15, simulation_max_episode
                                             seed_value=rand_seed) 
     
     model = agent_package.VanillaModelTable(data_dir=data_dir)
-    model.change_simulation_num(simulation_num = simulation_num, simulation_max_episode = simulation_max_episode)
+    model.change_simulation_num(simulation_num = simulation_num, simulation_max_episode = simulation_maagent.save_network_weight(trial_num = trial_num, episode_num=total_length)x_episode)
 
     agent.random_seed(rand_seed)
     model.random_seed(rand_seed) 
@@ -157,7 +157,7 @@ def model_based_train(rand_seed = 0, simulation_num = 15, simulation_max_episode
 
 
 if __name__ == "__main__":
-    model_based_train() 
+    model_based_train(rand_seed = 10, simulation_num = 2, simulation_max_episode = 30) 
 
 
             
