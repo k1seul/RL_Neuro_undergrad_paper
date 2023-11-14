@@ -48,9 +48,10 @@ def model_based_train(rand_seed = 0, simulation_num = 15, simulation_max_episode
                                             hyperparameters = hyperparameters,
                                             seed_value=rand_seed) 
     
+    
     model = agent_package.VanillaModelTable(data_dir=data_dir)
-    model.change_simulation_num(simulation_num = simulation_num, simulation_max_episode = simulation_maagent.save_network_weight(trial_num = trial_num, episode_num=total_length)x_episode)
-
+    model.change_simulation_num(simulation_num = simulation_num, simulation_max_episode = simulation_max_episode)
+    
     agent.random_seed(rand_seed)
     model.random_seed(rand_seed) 
     
@@ -58,8 +59,13 @@ def model_based_train(rand_seed = 0, simulation_num = 15, simulation_max_episode
     if not(os.path.exists(agent.weight_data_dir)):
         os.makedirs(agent.weight_data_dir)
 
+    agent.save_network_weight(trial_num = -2, episode_num=0)
+
+
     if bool_pre_train:
         pre_train(agent=agent, model=model) 
+
+    agent.save_network_weight(trial_num = -1, episode_num=0)
 
     for trial_num in range(trial_length):
         trial_start = monkey_path.get_start_position(trial_num) 
@@ -124,6 +130,7 @@ def model_based_train(rand_seed = 0, simulation_num = 15, simulation_max_episode
                                                   trial_t = trial_t, state = state,
                                                   reward_location = trial_goal, data_dir = data_dir)
             agent.save_network_weight(trial_num = trial_num, episode_num=total_length)
+            
             
         
         state_trajectories.append(state)

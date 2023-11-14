@@ -50,8 +50,12 @@ def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 3, simula
     if not(os.path.exists(agent.weight_data_dir)):
         os.makedirs(agent.weight_data_dir)
 
+    agent.save_network_weight(trial_num = -2, episode_num=0)
+
     if bool_pre_train:
         pre_train(agent=agent, model=model) 
+
+    agent.save_network_weight(trial_num = -1, episode_num=0)
 
     for trial_num in range(trial_length):
         trial_start = monkey_path.get_start_position(trial_num) 
@@ -151,7 +155,7 @@ def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 3, simula
 
 
 if __name__ == "__main__":
-    curiosity_based_train(rand_seed=55, random_explore=True) 
+    curiosity_based_train(random_explore=True) 
 
             
 
