@@ -7,14 +7,14 @@ import gc
 import torch
 from curiosity_based_train import curiosity_based_train
 
-
+"""
 for i in range(8):
  #   simple_dqn_train(rand_seed=i, fixed_trial=i)
     simple_dqn_train(rand_seed=i, fixed_trial=i, bool_PER=True)
     torch.cuda.empty_cache()
     gc.collect()
 
-"""
+
 
 for i in range(10, 15):
     rand_dqn_train(rand_seed=i)
