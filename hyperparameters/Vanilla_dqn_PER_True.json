@@ -5,7 +5,7 @@
     "learning_rate": 0.001,
     "hidden_size": 512, 
     "memory_size": 300,
-    "batch_size": 64, 
+    "batch_size": 128, 
     "gamma": 0.99,
 
     "PER_TD_epsilon": 0.1,
