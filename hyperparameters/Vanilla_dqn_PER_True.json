@@ -9,7 +9,7 @@
     "gamma": 0.99,
 
     "PER_TD_epsilon": 0.1,
-    "PER_alpha": 0.6,
+    "PER_alpha": 0.2,
     "expected_reward_alpha": 0.1 
 
 }
