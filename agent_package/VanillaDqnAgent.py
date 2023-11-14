@@ -112,7 +112,7 @@ class VanilaDqnAgent():
         max_next_q = np.argmax((next_q_values).cpu().detach().numpy())
         max_next_q = next_q_values[max_next_q]
         td_error = abs(reward + self.gamma * max_next_q - current_q)
-        priority = (td_error + self.TD_epsilon)*self.alpha
+        priority = (td_error + self.TD_epsilon)**self.alpha
         priority = priority.cpu().detach().numpy() 
         self.td_error_memory.append(priority)
     
