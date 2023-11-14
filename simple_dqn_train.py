@@ -82,7 +82,7 @@ def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
         else:
             env = MonkeyMazeEnv() 
 
-        env.no_small_reward = True 
+        #env.no_small_reward = True 
 
         trial_path_max = len(trial_monkey_path)
         trial_t = 0
