@@ -155,7 +155,7 @@ def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 5, simula
 
 
 if __name__ == "__main__":
-    curiosity_based_train(rand_seed=100, random_explore=True) 
+    curiosity_based_train(rand_seed=101, random_explore=True) 
 
             
 
