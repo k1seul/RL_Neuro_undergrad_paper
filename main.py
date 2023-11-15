@@ -7,6 +7,12 @@ import gc
 import torch
 from curiosity_based_train import curiosity_based_train
 
+
+for rand_seed in range(108,110):
+
+    model_based_train(rand_seed = rand_seed, simulation_num = 5, simulation_max_episode = 12) 
+    curiosity_based_train(rand_seed=rand_seed, random_explore=True) 
+
 """
 for i in range(8):
  #   simple_dqn_train(rand_seed=i, fixed_trial=i)
@@ -35,7 +41,7 @@ for i in range(10, 15):
 
 simulation_num = [2, 5, 10, 15, 20, 30]
 simulation_max_episode = [30, 12, 6, 4, 3, 2]
-"""
+
 simulation_num = [3]
 simulation_max_episode = [20]
 
@@ -45,7 +51,7 @@ for i in range(1):
         torch.cuda.empty_cache()
         gc.collect()
 
-"""
+
 
 for i in range(8):
     rand_dqn_train(rand_seed=i, fixed_trial=i)

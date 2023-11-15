@@ -129,7 +129,8 @@ def model_based_train(rand_seed = 0, simulation_num = 15, simulation_max_episode
             plotting_functions.plot_all_functions(agent = agent, model = model, i_episode = trial_num,
                                                   trial_t = trial_t, state = state,
                                                   reward_location = trial_goal, data_dir = data_dir)
-            agent.save_network_weight(trial_num = trial_num, episode_num=total_length)
+            agent.save_network_weight(trial_num = trial_num, episode_num=total_length-1)
+            
             
             
         
@@ -164,7 +165,7 @@ def model_based_train(rand_seed = 0, simulation_num = 15, simulation_max_episode
 
 
 if __name__ == "__main__":
-    model_based_train(rand_seed = 10, simulation_num = 2, simulation_max_episode = 30) 
+    model_based_train(rand_seed = 100, simulation_num = 5, simulation_max_episode = 12) 
 
 
             
