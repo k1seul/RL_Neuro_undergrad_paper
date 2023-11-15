@@ -18,7 +18,7 @@ for i in range(8):
 
 for i in range(10, 15):
     rand_dqn_train(rand_seed=i)
-"""
+
 
 
 
@@ -31,18 +31,21 @@ for i in range(10, 15):
     torch.cuda.empty_cache()
     gc.collect()
 
-"""
+
 
 simulation_num = [2, 5, 10, 15, 20, 30]
 simulation_max_episode = [30, 12, 6, 4, 3, 2]
+"""
+simulation_num = [3]
+simulation_max_episode = [20]
 
-for i in range(6):
+for i in range(1):
     for l in range(2):
         model_based_train(rand_seed=l, simulation_num=simulation_num[i], simulation_max_episode=simulation_max_episode[i])
         torch.cuda.empty_cache()
         gc.collect()
 
-
+"""
 
 for i in range(8):
     rand_dqn_train(rand_seed=i, fixed_trial=i)
