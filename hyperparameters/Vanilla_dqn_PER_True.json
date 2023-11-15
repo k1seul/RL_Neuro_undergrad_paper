@@ -4,8 +4,8 @@
     "epsilon_min": 0.01, 
     "learning_rate": 0.001,
     "hidden_size": 512, 
-    "memory_size": 500,
-    "batch_size": 128, 
+    "memory_size": 256,
+    "batch_size": 32, 
     "gamma": 0.99,
 
     "PER_TD_epsilon": 0.01,
