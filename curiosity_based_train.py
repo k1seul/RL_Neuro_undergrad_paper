@@ -12,7 +12,7 @@ import json
 
 
 
-def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 3, simulation_max_episode = 20, random_explore = False):
+def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 5, simulation_max_episode = 12, random_explore = False):
 
     gif_plotting = False      
     monkey_name = "p" 
@@ -155,7 +155,7 @@ def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 3, simula
 
 
 if __name__ == "__main__":
-    curiosity_based_train(random_explore=True) 
+    curiosity_based_train(rand_seed=100, random_explore=True) 
 
             
 
