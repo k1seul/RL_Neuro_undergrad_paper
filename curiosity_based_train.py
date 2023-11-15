@@ -129,7 +129,7 @@ def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 5, simula
             plotting_functions.plot_all_functions(agent = agent, model = model, i_episode = trial_num,
                                                   trial_t = trial_t, state = state,
                                                   reward_location = trial_goal, data_dir = data_dir, dual_policy=True)
-            agent.save_network_weight(trial_num = trial_num, episode_num=total_length)
+            agent.save_network_weight(trial_num = trial_num, episode_num=total_length - 1)
             
         if done:
             agent.decay_epsilon() 
