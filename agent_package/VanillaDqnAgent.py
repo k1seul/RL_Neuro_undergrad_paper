@@ -126,8 +126,8 @@ class VanilaDqnAgent():
         """sampling from memory using td error as priortised experience replay weights
         output the p values of len(memory) for use as sampling weights"""
 
-        if self.epsilon < 0.2:
-            return random.sample(self.experience_memory, self.batch_size)
+        #if self.epsilon < 0.2:
+        #    return random.sample(self.experience_memory, self.batch_size)
         memory = self.td_error_memory
 
         td_error_p = memory / (sum(memory))
