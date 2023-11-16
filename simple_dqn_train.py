@@ -61,8 +61,15 @@ def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
     if not(os.path.exists(agent.weight_data_dir)):
         os.makedirs(agent.weight_data_dir)
 
+    agent.save_network_weight(trial_num = -2, episode_num=0)
+
+
     if bool_pre_train:
         pre_train(agent = agent, model = None, episode_num = 10)
+
+    agent.save_network_weight(trial_num = -1, episode_num=0)
+
+
 
     for trial_num in range(trial_length):
         if not(fixed_trial is None):
@@ -126,6 +133,7 @@ def simple_dqn_train(rand_seed = 0, soft_max = False, action_mask_bool = False, 
 
             plotting_functions.plot_all_functions(agent=agent, model=None, i_episode = trial_num, trial_t = trial_t, 
                                                 state = state, reward_location=trial_goal, data_dir=data_dir, finished=finished)
+            agent.save_network_weight(trial_num = trial_num, episode_num=total_length-1)
 
             
         if done:

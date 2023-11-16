@@ -183,11 +183,14 @@ class VanilaDqnAgent():
     def decay_epsilon(self):
         self.epsilon = max(self.epsilon_min, self.epsilon_decay_rate  * self.epsilon)
 
-    def save_network_weight(self, trial_num=0):
-        if not(trial_num % 10 == 0 ):
-            return 
+    def save_network_weight(self, trial_num=0, episode_num=0):
+        if episode_num is None or not(episode_num % 50 == 1):
+            return
+        if episode_num > 500:
+            return
         
-        file_name = self.weight_data_dir + f"network_{str(trial_num)}.pkl"
+        
+        file_name = self.weight_data_dir + f"network_{str(trial_num)}_{str(episode_num-1)}.pkl"
 
         weights = []
 
