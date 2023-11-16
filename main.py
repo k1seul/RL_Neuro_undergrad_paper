@@ -8,7 +8,7 @@ import torch
 from curiosity_based_train import curiosity_based_train
 
 
-for rand_seed in range(20: 22):
+for rand_seed in range(20, 22):
     simple_dqn_train(rand_seed=rand_seed, bool_PER=False)
     torch.cuda.empty_cache()
     gc.collect()
