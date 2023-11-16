@@ -9,9 +9,12 @@ from curiosity_based_train import curiosity_based_train
 
 
 for rand_seed in range(108,110):
+    simple_dqn_train(rand_seed=rand_seed, bool_PER=False)
+    torch.cuda.empty_cache()
+    gc.collect()
 
-    model_based_train(rand_seed = rand_seed, simulation_num = 5, simulation_max_episode = 12) 
-    curiosity_based_train(rand_seed=rand_seed, random_explore=True) 
+ #   model_based_train(rand_seed = rand_seed, simulation_num = 5, simulation_max_episode = 12) 
+ #   curiosity_based_train(rand_seed=rand_seed, random_explore=True) 
 
 """
 for i in range(8):
