@@ -14,7 +14,7 @@ import json
 def model_based_train(rand_seed = 0, simulation_num = 15, simulation_max_episode = 4): 
 
     gif_plotting = False      
-    monkey_name = "p" 
+    monkey_name = "s" 
     bool_pre_train = True 
     bool_PER = False # Priortized Experience Replay 
     env = MonkeyMazeEnv() 

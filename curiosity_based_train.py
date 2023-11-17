@@ -15,7 +15,7 @@ import json
 def curiosity_based_train(rand_seed = 0, maxent=True, simulation_num = 5, simulation_max_episode = 12, random_explore = False):
 
     gif_plotting = False      
-    monkey_name = "p" 
+    monkey_name = "s" 
     bool_pre_train = True 
     bool_PER = False 
     env = MonkeyMazeEnv() 
