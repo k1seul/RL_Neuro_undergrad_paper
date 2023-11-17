@@ -23,7 +23,7 @@ def monkey_max_choice_agent_compare(trial_seq = None, agent = ModelBasedAgent):
             break 
 
         direction_vec = np.array(trial_seq[i+1], dtype=np.float64) - np.array(state, dtype = np.float64)
-        np.clip(direction_vec, -1 , 1)
+        direction_vec = np.clip(direction_vec, -1 , 1)
         action = direction_to_action[tuple(direction_vec)]
         max_state_action.setdefault(tuple(state), [0, 0, 0, 0])
         max_state_action[tuple(state)][action] += 1 
