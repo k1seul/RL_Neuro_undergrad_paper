@@ -16,9 +16,9 @@ for rand_seed in range(20, 22):
 
 """
 
-for rand_seed in range(100, 22):
-    model_based_train(rand_seed = rand_seed, simulation_num = 5, simulation_max_episode = 12) 
+for rand_seed in range(100, 102):
     curiosity_based_train(rand_seed=rand_seed, random_explore=True) 
+    model_based_train(rand_seed = rand_seed, simulation_num = 5, simulation_max_episode = 12) 
 
 """
 for i in range(8):
