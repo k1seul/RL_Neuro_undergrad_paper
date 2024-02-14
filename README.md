@@ -80,8 +80,13 @@ Distribution plots from below shows similarity using that of randomly suffled RL
   <img width=700 src="https://github.com/k1seul/undergrad_paper/assets/117340073/a314ad0a-0c66-497f-988a-cc00c3351c38">
 </p>
 
+My final result to show is that OFC RDM matrix shows temporal clustering. This is based on question that i had about what component makes the OFC's neurological state similar? By clustering RDM hierarchal first, we can calculate total sum of difference with our difference function of choosing.
+If this difference comes out to be low(p < 0.01 to randomly shuffle data), we can say that it has clustering effect to that component. The difference functions we used were difference of reward index and distance of reward location. As seen from figure below difference sum between reward distance was not statically significant but that of reward index was, thus temporal clustering is present if OFC RDM.
 
 
+  <p align="center">
+  <img width=700 src="https://github.com/k1seul/undergrad_paper/assets/117340073/1c21197c-0265-4448-981d-4bac871e83cf">
+</p>
 
 
 
