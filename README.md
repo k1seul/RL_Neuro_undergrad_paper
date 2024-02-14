@@ -74,10 +74,14 @@ My novel curiosity maxent model showed best performance along multiple RL agents
 </p>
 
 The RDM matrices of curiosity matent model showed most similairty to the rhesus monkey's OFC RDM on all three comparison metric(cosine similarity, kendall-tau α and pearson correlations)
+Distribution plots from below shows similarity using that of randomly suffled RL network RDMS. This is done to calculate p-values of each similairty metric being higher than chance.
 
   <p align="center">
   <img width=700 src="https://github.com/k1seul/undergrad_paper/assets/117340073/a314ad0a-0c66-497f-988a-cc00c3351c38">
 </p>
+
+
+
 
 
 
