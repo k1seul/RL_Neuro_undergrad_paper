@@ -1,0 +1,17 @@
+{
+    "epsilon" : 1.0,
+    "epsilon_decay_rate": 0.99,
+    "epsilon_min": 0.2, 
+    "learning_rate": 0.001,
+    "hidden_size": 512, 
+    "memory_size": 10000,
+    "batch_size": 128, 
+    "gamma": 0.99,
+    "log_weights": 5,
+    "log_bias": 4,
+
+    "PER_TD_epsilon": 0.001,
+    "PER_alpha": 0.6,
+    "expected_reward_alpha": 0.1 
+
+}

@@ -13,6 +13,7 @@ class MonkeyPath:
         self.pos_sequence = pos_sequence
         self.trial_num = pos_sequence.shape[0]
         self.location_num = 16
+        self.goal_index = [] 
 
         start_end_location = []
         for i in range(self.trial_num):
@@ -20,6 +21,8 @@ class MonkeyPath:
 
         start_end_location = list(set(start_end_location))
         self.start_end_locations = start_end_location
+        self.goal_list = self.end_locations()
+        self.get_all_index()
 
     def get_goal_position(self, trial_num):
         return self.pos_sequence[trial_num][0][-1]
@@ -42,16 +45,42 @@ class MonkeyPath:
     def end_locations(self):
         end_locations = []
         for i in range(self.trial_num):
-            end_locations.append(tuple(self.pos_sequence[i][-1][0]))
+            if not(tuple(self.pos_sequence[i][0][-1]) in end_locations):
+                end_locations.append(tuple(self.pos_sequence[i][0][-1]))
+            else:
+                pass
 
-        end_locations = list(set(end_locations))
+
+        end_locations = list(end_locations)
         return end_locations
+    
+    def get_reward(self, trial_num):
+        reward = 8
+        trial_path = self.get_trial(trial_num)
+        small_reward = np.array(
+            [[3, 4], [3, 8], [5, 6], [6, 9], [1, 2], [1, 6], [7, 4], [7, 2]]
+        )
+        for small_reward_pos in small_reward:
+            for trial_path_point in trial_path:
+                if (small_reward_pos == trial_path_point).all():
+                    reward += 1
+                    break
+
+        return reward
+    
+
+    
+    
 
     def location2index(self, location):
-        index_num = self.start_end_locations.index(tuple(location))
+        index_num = self.goal_list.index(tuple(location))
         return index_num
+    
+    def get_all_index(self):
+        for i in range(self.trial_num):
+            self.goal_index.append(self.location2index(self.get_goal_position(i)))
 
 
 if __name__ == "__main__":
     monkey_path = MonkeyPath()
-    print(monkey_path.get_trial(0))
+    print(monkey_path.get_reward(2))
