@@ -89,6 +89,16 @@ If this difference comes out to be low(p < 0.01 to randomly shuffle data), we ca
 </p>
 
 
+### Discussion
+#### Why Similarity of Changing Dynamics of Neural Signals is Highest in the Maximum Entrophy Curiosity Reinforcement Learning Model?
+
+The orbitofrontal cortex(OFC) is known to function as a signaling reward identity and it's changing dynamic. This suggest the dynamics of OFC is similar to that of artificial agent adjusting to external reward signal. A recent paper[^1] about OFC-subcortical pathways shows two different adaptive behaviors of macaque monkeys using experince-based or infer-based updating. Two pathways the authors suggest in this paper are OFC-rmCD(rostromedial caudate nucleus) pathway which is realated to experience-based learning and OFC-Mdm(mediodorsal thalamus) pathway which is realated to infer-based learning. Similarly, this similarity increase of the curiosity-based RL neural network dynamics to the dynamical changes of neural network might be related to creating multiple learning pathways similar to internal/external learning pathways of OFC.
+
+[^1]: https://www.biorxiv.org/content/10.1101/2023.11.17.567492v1
+
+
+
+
 
 
   
